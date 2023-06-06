@@ -36,16 +36,12 @@
         }
 
         .playlist {
-        	margin-top: 35;
-            margin-left: -45;
-            padding-bottom: 12;
+        	margin-top: 0;
+            margin-left: -35;
+            padding-bottom: 10;
             overflow-y: auto;
         }
         .playlist li {
-        	margin-top: 0;
-            margin-left: 0;
-            margin-right: 0;
-            padding: 0;
             background-color: #282828;
             color: #FFFFFF;
             border-radius: 8px;
@@ -58,6 +54,8 @@
             display: flex;
             align-items: center; /* Centraliza verticalmente */
             cursor: pointer; /* Adiciona cursor de clique */
+            margin-top: 0;
+            margin-left: -0;
         }
         .playlist li:hover {
             background-color: #404040;
@@ -127,15 +125,15 @@
     </script>
 </head>
 <body>
-	
-    <table>
-        <tr>
-            <td style="width: 70%;">
-            	<table class="top-table">
+	<table class="top-table">
                 <tr>
                 <td id="video-title"></td>
                </tr>
 </table>
+    <table>
+        <tr>
+            <td style="width: 70%;">
+            	
                 <div class="video-container">
                     <video id="video-player"  autoplay></video>
                 </div>
