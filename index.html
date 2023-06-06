@@ -101,6 +101,23 @@
             border-radius: 5px;
             width: 50%;
         }
+        .progress-bar {
+    background-color: blue;
+    border-radius: 2px;
+    transition: width 0.3s;
+}
+
+.progress-bar::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: red;
+    border-radius: 2px;
+    transition: width 0.3s;
+}
+
+        
         #video-player::-webkit-media-controls {
   display: none !important;
 }
@@ -123,6 +140,15 @@
                 <div class="video-container">
                     <video id="video-player"  autoplay></video>
                 </div>
+                <table class="progress-table" style="width: 100%;">
+    <tr>
+        <td>
+            <input type="range" id="progress-slider" min="0" max="100" step="0.1" value="0" style="width: 100%;">
+            <div class="progress-bar"></div>
+        </td>
+    </tr>
+</table>
+
             </td>
             <td style="width: 30%;">
                 <div class="playlist">
@@ -171,6 +197,7 @@
         </tr>
     </table>
 
+
     <script>
     	const videoTitleElement = document.getElementById('video-title');
         const videoPlayer = document.getElementById('video-player');
@@ -190,11 +217,16 @@
         }
 
         function updatePlaylistHeight() {
-            const videoContainer = document.querySelector('.video-container');
-            const videoHeight = videoContainer.offsetHeight;
-            const playlist = document.querySelector('.playlist');
-            playlist.style.height = `${videoHeight}px`;
-        }
+    const videoContainer = document.querySelector('.video-container');
+    const videoHeight = videoContainer.offsetHeight;
+    const playlist = document.querySelector('.playlist');
+    const progressTable = document.querySelector('.progress-table');
+    const progressBar = document.querySelector('#progress-slider');
+    const totalHeight = videoHeight + playlist.offsetHeight + progressBar.offsetHeight;
+    playlist.style.height = `${videoHeight}px`;
+    progressTable.style.height = `calc(100% - ${totalHeight}px)`;
+    progressTable.style.width = '100%';
+}
 
         function nextVideo() {
             currentVideoIndex = (currentVideoIndex + 1) % playlistItems.length;
@@ -279,6 +311,25 @@ document.addEventListener('MSFullscreenChange', toggleFullscreenControls);
 
         updatePlaylistHeight();
         playVideo(currentVideoIndex);
+        
+        const progressSlider = document.getElementById('progress-slider');
+
+function updateVideoProgress() {
+    const progress = (videoPlayer.currentTime / videoPlayer.duration) * 100;
+    progressSlider.value = progress;
+    const progressBar = document.querySelector('.progress-bar');
+    progressBar.style.width = `${progress}%`;
+}
+
+
+function setVideoProgress() {
+    const progress = progressSlider.value;
+    videoPlayer.currentTime = (progress / 100) * videoPlayer.duration;
+}
+
+videoPlayer.addEventListener('timeupdate', updateVideoProgress);
+progressSlider.addEventListener('input', setVideoProgress);
+
     </script>
 </body>
 </html>
