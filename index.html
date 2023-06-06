@@ -6,13 +6,6 @@
     width: 100%;
   }
 
-  table.top-table th {
-    font-family: "Arial Black", Arial, sans-serif;
-    font-weight: bold;
-    color: white;
-    text-align: left;
-  }
-
   table.top-table td {
     font-family: "Arial Black", Arial, sans-serif;
     font-weight: bold;
@@ -118,7 +111,7 @@
 }
 
         
-        #video-player::-webkit-media-controls {
+   #video-player::-webkit-media-controls {
   display: none !important;
 }
 
@@ -129,10 +122,9 @@
 </head>
 <body>
 	<table class="top-table">
-  <tr>
-    <th>VOCÊ ESTÁ ASSISTINDO:</th>
-    <td id="video-title"></td>
-  </tr>
+                <tr>
+                <td id="video-title"></td>
+               </tr>
 </table>
     <table>
         <tr>
@@ -196,7 +188,6 @@
           </td>
         </tr>
     </table>
-
 
     <script>
     	const videoTitleElement = document.getElementById('video-title');
