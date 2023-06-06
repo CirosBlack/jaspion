@@ -1,6 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<style>
+  table.top-table {
+    width: 100%;
+  }
+
+  table.top-table th {
+    font-family: "Arial Black", Arial, sans-serif;
+    font-weight: bold;
+    color: white;
+    text-align: left;
+  }
+
+  table.top-table td {
+    font-family: "Arial Black", Arial, sans-serif;
+    font-weight: bold;
+    color: white;
+    text-align: left;
+  }
+</style>
+
     <style>
         table {
             width: 100%;
@@ -81,12 +101,22 @@
             border-radius: 5px;
             width: 50%;
         }
+        #video-player::-webkit-media-controls {
+  display: none !important;
+}
+
     </style>
     <script>
         document.addEventListener('contextmenu', event => event.preventDefault());
     </script>
 </head>
 <body>
+	<table class="top-table">
+  <tr>
+    <th>VOCÊ ESTÁ ASSISTINDO:</th>
+    <td id="video-title"></td>
+  </tr>
+</table>
     <table>
         <tr>
             <td style="width: 70%;">
@@ -142,6 +172,7 @@
     </table>
 
     <script>
+    	const videoTitleElement = document.getElementById('video-title');
         const videoPlayer = document.getElementById('video-player');
         const playlistItems = document.querySelectorAll('.playlist li');
         const playButton = document.getElementById('play-button');
@@ -203,6 +234,32 @@
             currentVideoIndex = index;
             playVideo(currentVideoIndex);
         }
+        function playVideo(videoIndex) {
+  const videoSrc = playlistItems[videoIndex].getAttribute('data-src');
+  const videoTitle = playlistItems[videoIndex].innerText;
+  
+  videoPlayer.src = videoSrc;
+  videoPlayer.play();
+  
+  videoTitleElement.textContent = videoTitle;
+}
+// Função para remover os controles em modo tela cheia
+function toggleFullscreenControls() {
+  var videoPlayer = document.getElementById('video-player');
+  
+  if (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement) {
+    videoPlayer.removeAttribute('controls');
+  } else {
+    videoPlayer.setAttribute('controls', 'controls');
+  }
+}
+
+// Evento para verificar o modo tela cheia
+document.addEventListener('fullscreenchange', toggleFullscreenControls);
+document.addEventListener('webkitfullscreenchange', toggleFullscreenControls);
+document.addEventListener('mozfullscreenchange', toggleFullscreenControls);
+document.addEventListener('MSFullscreenChange', toggleFullscreenControls);
+
 
         playButton.addEventListener('click', togglePlay);
         previousButton.addEventListener('click', previousVideo);
