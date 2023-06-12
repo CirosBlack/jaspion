@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="icon" href="https://github.com/CirosBlack/jaspion/blob/main/favicon.png" type="image/png">
+	<style>
+    body {
+      font-family: "Arial Black", Arial, sans-serif;
+      font-weight: bold;
+      text-transform: uppercase;
+      color: #fff;
+      background-color: #1C1C1C;
+    }
+    
+    #tabela-principal {
+      background-color: black;
+    }
+  </style>
+  <style>
+    .coluna-1 {
+      width: 70%;
+    }
+    .coluna-2 {
+      width: 30%;
+    }
+    .largura-responsiva {
+      width: 100%;
+      height: auto;
+    }
+    
+    .playlist {
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: black;
+      color: #fff;
+      padding: 10px;
+    }
+    .playlist ul {
+      list-style-type: none;
+      padding-left: 0;
+      margin-top: 0;
+    }
+    .playlist a {
+      display: flex;
+      align-items: center;
+      margin-bottom: 5px;
+      background-color: #1C1C1C;
+      padding: 5px;
+      cursor: pointer;
+      text-decoration: none;
+      border-radius: 10px;
+      border: 1px solid #fff;
+      color: #ccc;
+    }
+    .playlist a:hover {
+      background-color: #666;
+    }
+    .playlist a.selected {
+      background-color: #800000;
+      color: #fff;
+      border-color: #fff;
+    }
+    .playlist video {
+      width: 100%;
+      height: 0;
+      padding-bottom: 75%;
+      border-radius: 10px;
+      border: 1px solid #fff;
+    }
+    .playlist .thumbnail {
+      width: 80px;
+      height: 50px;
+      margin-right: 10px;
+      border-radius: 5%;
+      object-fit: cover;
+    }
+       #video-player::-webkit-media-controls {
+  display: none !important;
+}    
+  </style>
+      <script>
+        document.addEventListener('contextmenu', event => event.preventDefault());
+    </script>
+<script>
+  function toggleColumn() {
+    var button = document.querySelector(".toggle-button");
+    var coluna2 = document.querySelector('.coluna-2');
+    
+    if (coluna2.style.display === 'none') {
+      coluna2.style.display = 'table-cell';
+      button.innerHTML = "Ocultar Playlist";
+    } else {
+      coluna2.style.display = 'none';
+      button.innerHTML = "Mostrar Playlist";
+    }
+  }
+</script>
+
+<style>
+    .toggle-button {
+      float: right;
+    }
+  </style>
+
+
+</head>
+<body>
+  <table id="tabela-principal" style="width: 100%;">
+    <tr>
+      <td class="coluna-1" style="border: 1px solid black;">
+        <table id="tabela-secundaria" class="largura-responsiva" style="border: 1px solid black;">
+          <tr>
+            <td id="primeira-celula" style="border: 1px solid black;"></td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid black;">
+              <div style="position: relative; width: 100%; height: 0; padding-bottom: 75%;">
+                <video id="video-player" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"  controls autoplay>
+                  <source src="" type="video/mp4">
+                </video>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td id="terceira-celula" style="border: 1px solid black;">
+  <div>
+    <input type="range" id="progress-bar" min="0" max="100" step="0.1" value="0" style="width: 100%;">
+    <div id="time" style="color: #fff; float: right; font-size: 12px;"></div>
+  </div>
+</td>
+
+          </tr>
+          <tr>
+            <td id="quarta-celula">
+  <button id="play-button">Play</button>
+<button id="previousBtn">Anterior</button>
+    <button id="nextBtn">Próximo</button>
+  <button id="tela-cheia-button">Tela Cheia</button>
+  <input type="range" id="volume-range"min="0" max="1" step="0.1" value="1">
+    <button class="toggle-button" onclick="toggleColumn()">Ocultar Playlist</button>
+    
+</td>
+        </table>
+      </td>
+      <td class="coluna-2" style="border: 1px solid black;">
+        <div class="playlist" id="playlist">
+        <ul>
+  <li><a href="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/01_O_Planeta_de_Edin.mp4"><img class="thumbnail" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnEGi4vFQNklofXYoxPbeDZ50MAO-UlENmCU6zqOoafkJlRCbY4ehdOZEi&s=10"> O Planeta de Edin</a>
+  <li><a href="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/02_O_triste_fim_de_Sakura.mp4"><img class="thumbnail" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnEGi4vFQNklofXYoxPbeDZ50MAO-UlENmCU6zqOoafkJlRCbY4ehdOZEi&s=10">O triste fim de Sakura</a></li>
+  <li><a href="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/03_O_sonho_do_menino_galactico.mp4"><img class="thumbnail" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnEGi4vFQNklofXYoxPbeDZ50MAO-UlENmCU6zqOoafkJlRCbY4ehdOZEi&s=10">O sonho do menino galáctico</a></li>
+  <li><a href="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/04_A_furia_do_pantano.mp4"><img class="thumbnail" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnEGi4vFQNklofXYoxPbeDZ50MAO-UlENmCU6zqOoafkJlRCbY4ehdOZEi&s=10">A fúria do pântano</a></li>
+  <li><a href="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/05_O_enigma_da_flauta.mp4"><img class="thumbnail" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnEGi4vFQNklofXYoxPbeDZ50MAO-UlENmCU6zqOoafkJlRCbY4ehdOZEi&s=10">O enigma da flauta</a></li>
+  <li><a href="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/06_Gordon_em_busca_da_mae.mp4"><img class="thumbnail" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnEGi4vFQNklofXYoxPbeDZ50MAO-UlENmCU6zqOoafkJlRCbY4ehdOZEi&s=10">Gordon em busca da mãe</a></li>
+  <li><a href="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/07_O_demonio_da_montanha.mp4"><img class="thumbnail" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnEGi4vFQNklofXYoxPbeDZ50MAO-UlENmCU6zqOoafkJlRCbY4ehdOZEi&s=10">O demônio da montanha</a></li>
+  <li><a href="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/08_O_casal_fugitivo.mp4"><img class="thumbnail" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnEGi4vFQNklofXYoxPbeDZ50MAO-UlENmCU6zqOoafkJlRCbY4ehdOZEi&s=10">O casal fugitivo</a></li>
+  <li><a href="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/09_A_historia_de_uma_arvore.mp4"><img class="thumbnail" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnEGi4vFQNklofXYoxPbeDZ50MAO-UlENmCU6zqOoafkJlRCbY4ehdOZEi&s=10">A história de uma árvore</a></li>
+  <li><a href="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/10_O_ataque_do_Pyrossauro.mp4"><img class="thumbnail" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnEGi4vFQNklofXYoxPbeDZ50MAO-UlENmCU6zqOoafkJlRCbY4ehdOZEi&s=10">O ataque do Pyrossauro</a></li>
+  <li><a href="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/11_Perigo_em_Tsukuba.mp4"><img class="thumbnail" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnEGi4vFQNklofXYoxPbeDZ50MAO-UlENmCU6zqOoafkJlRCbY4ehdOZEi&s=10">Perigo em Tsukuba</a></li>
+  <li><a href="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/12_A_profecia.mp4"><img class="thumbnail" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnEGi4vFQNklofXYoxPbeDZ50MAO-UlENmCU6zqOoafkJlRCbY4ehdOZEi&s=10">A profecia</a></li>
+  <li><a href="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/13_A_investida_dos_aliados_espaciais.mp4"><img class="thumbnail" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnEGi4vFQNklofXYoxPbeDZ50MAO-UlENmCU6zqOoafkJlRCbY4ehdOZEi&s=10">A investida dos aliados espaciais</a></li>
+  <li><a href="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/14_Perigo_na_lagoa_dos_noivos.mp4"><img class="thumbnail" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnEGi4vFQNklofXYoxPbeDZ50MAO-UlENmCU6zqOoafkJlRCbY4ehdOZEi&s=10">Perigo na lagoa dos noivos</a></li>
+  <li><a href="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/15_Sonho_ou_ilusao_A_imagem_dourada.mp4"><img class="thumbnail" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnEGi4vFQNklofXYoxPbeDZ50MAO-UlENmCU6zqOoafkJlRCbY4ehdOZEi&s=10">Sonho ou ilusão? A imagem dourada</a></li>
+  <li><a href="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/16_Qual_o_destino_da_humanidade.mp4"><img class="thumbnail" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnEGi4vFQNklofXYoxPbeDZ50MAO-UlENmCU6zqOoafkJlRCbY4ehdOZEi&s=10">Qual o destino da humanidade?</a></li>
+  <li><a href="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/17_O_misterio_do_Passaro_Dourado.mp4"><img class="thumbnail" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnEGi4vFQNklofXYoxPbeDZ50MAO-UlENmCU6zqOoafkJlRCbY4ehdOZEi&s=10">O mistério do Pássaro Dourado</a></li>
+  <li><a href="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/18_O_inimigo_imortal.mp4"><img class="thumbnail" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnEGi4vFQNklofXYoxPbeDZ50MAO-UlENmCU6zqOoafkJlRCbY4ehdOZEi&s=10">O inimigo imortal</a></li>
+  <li><a href="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/19_Alerta_no_oceano.mp4"><img class="thumbnail" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnEGi4vFQNklofXYoxPbeDZ50MAO-UlENmCU6zqOoafkJlRCbY4ehdOZEi&s=10">Alerta no oceano</a></li>
+  <li><a href="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/20_A_ultima_chance.mp4"><img class="thumbnail" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnEGi4vFQNklofXYoxPbeDZ50MAO-UlENmCU6zqOoafkJlRCbY4ehdOZEi&s=10">A última chance</a></li>
+  <li><a href="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/21_O_valente_garoto_jogador.mp4"><img class="thumbnail" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnEGi4vFQNklofXYoxPbeDZ50MAO-UlENmCU6zqOoafkJlRCbY4ehdOZEi&s=10">O valente garoto jogador</a></li>
+  <li><a href="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/22_O_feitico_de_Titania.mp4"><img class="thumbnail" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnEGi4vFQNklofXYoxPbeDZ50MAO-UlENmCU6zqOoafkJlRCbY4ehdOZEi&s=10">O feitiço de Titânia</a></li>
+  <li><a href="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/23_O_monstro_do_seculo.mp4"><img class="thumbnail" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnEGi4vFQNklofXYoxPbeDZ50MAO-UlENmCU6zqOoafkJlRCbY4ehdOZEi&s=10">O monstro do século</a></li>
+  <li><a href="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/24_Ambicao_perigosa.mp4"><img class="thumbnail" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnEGi4vFQNklofXYoxPbeDZ50MAO-UlENmCU6zqOoafkJlRCbY4ehdOZEi&s=10">Ambição perigosa</a></li>
+  <li><a href="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/25_Toquio_em_perigo.mp4"><img class="thumbnail" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnEGi4vFQNklofXYoxPbeDZ50MAO-UlENmCU6zqOoafkJlRCbY4ehdOZEi&s=10">Tóquio em perigo</a></li>
+  <li><a href="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/26_Contra_ataque_de_Daileon.mp4"><img class="thumbnail" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnEGi4vFQNklofXYoxPbeDZ50MAO-UlENmCU6zqOoafkJlRCbY4ehdOZEi&s=10">Contra ataque de Daileon</a></li>
+  <li><a href="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/27_Juventude_ameacadora.mp4"><img class="thumbnail" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnEGi4vFQNklofXYoxPbeDZ50MAO-UlENmCU6zqOoafkJlRCbY4ehdOZEi&s=10">Juventude ameaçadora</a>
+</ul>
+        </div>
+      </td>
+    </tr>
+  </table>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var playlist = document.getElementById('playlist');
+    var previousBtn = document.getElementById('previousBtn');
+    var nextBtn = document.getElementById('nextBtn');
+
+    var currentIndex = 0;
+    var videos = playlist.getElementsByTagName('a');
+
+    function playVideo(index) {
+      if (index >= 0 && index < videos.length) {
+        var videoPlayer = document.getElementById('video-player');
+        var source = videos[index].getAttribute('href');
+        videoPlayer.src = source;
+        videoPlayer.load();
+        videoPlayer.play();
+
+        const tabelaSecundariaCelula1 = document.querySelector('#primeira-celula');
+        tabelaSecundariaCelula1.textContent = `Você está assistindo: ${videos[index].textContent.trim()}`;
+
+        // Remove a classe 'selected' de todos os vídeos da playlist
+        for (var i = 0; i < videos.length; i++) {
+          videos[i].classList.remove('selected');
+        }
+
+        // Adiciona a classe 'selected' ao vídeo atual na playlist
+        videos[index].classList.add('selected');
+
+        currentIndex = index; // Atualiza o índice atual para corresponder ao vídeo reproduzido
+      }
+    }
+
+    previousBtn.addEventListener('click', function() {
+      currentIndex--;
+      if (currentIndex < 0) {
+        currentIndex = videos.length - 1; // Volta para o último vídeo da playlist se estiver no primeiro vídeo
+      }
+      playVideo(currentIndex);
+    });
+
+    nextBtn.addEventListener('click', function() {
+      currentIndex++;
+      if (currentIndex >= videos.length) {
+        currentIndex = 0; // Volta para o primeiro vídeo da playlist se estiver no último vídeo
+      }
+      playVideo(currentIndex);
+    });
+
+    var playlistItems = playlist.querySelectorAll('a');
+    playlistItems.forEach((playlistItem, index) => {
+      playlistItem.addEventListener('click', () => {
+        playVideo(index);
+        currentIndex = index;
+
+        // Remove a classe 'selected' de todos os vídeos da playlist
+        for (var i = 0; i < videos.length; i++) {
+          videos[i].classList.remove('selected');
+        }
+
+        // Adiciona a classe 'selected' ao vídeo atual na playlist
+        videos[index].classList.add('selected');
+      });
+    });
+
+    var videoPlayer = document.getElementById('video-player');
+
+    videoPlayer.addEventListener('ended', function() {
+      currentIndex++;
+      if (currentIndex >= videos.length) {
+        currentIndex = 0; // Volta para o primeiro vídeo da playlist se estiver no último vídeo
+      }
+      playVideo(currentIndex);
+    });
+  });
+</script>
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const playButton = document.getElementById("play-button");
+    const telaCheiaButton = document.getElementById("tela-cheia-button");
+    const volumeRange = document.getElementById("volume-range");
+    const videoPlayer = document.getElementById("video-player");
+
+    playButton.addEventListener("click", function() {
+      if (videoPlayer.paused) {
+        videoPlayer.play();
+        playButton.textContent = "Pausar";
+      } else {
+        videoPlayer.pause();
+        playButton.textContent = "Play";
+      }
+    });
+
+    telaCheiaButton.addEventListener("click", function() {
+      if (videoPlayer.requestFullscreen) {
+        videoPlayer.requestFullscreen();
+      } else if (videoPlayer.mozRequestFullScreen) { // Firefox
+        videoPlayer.mozRequestFullScreen();
+      } else if (videoPlayer.webkitRequestFullscreen) { // Chrome, Safari and Opera
+        videoPlayer.webkitRequestFullscreen();
+      } else if (videoPlayer.msRequestFullscreen) { // IE/Edge
+        videoPlayer.msRequestFullscreen();
+      }
+    });
+
+    volumeRange.addEventListener("input", function() {
+      videoPlayer.volume = volumeRange.value;
+    });
+  });
+
+  function initializePlaylist() {
+    const playlistItems = document.querySelectorAll('.playlist a');
+    const videoPlayer = document.getElementById('video-player');
+    let currentIndex = 0;
+
+    function playVideo(index) {
+      const source = playlistItems[index].getAttribute('href');
+      videoPlayer.src = source;
+      playlistItems.forEach(playlistItem => {
+        playlistItem.classList.remove('selected');
+      });
+      playlistItems[index].classList.add('selected');
+      const tabelaSecundariaCelula1 = document.querySelector('#primeira-celula');
+      tabelaSecundariaCelula1.textContent = `Você está assistindo: ${playlistItems[index].textContent.trim()}`;
+    }
+
+    playlistItems.forEach((playlistItem, index) => {
+      playlistItem.addEventListener('click', () => {
+        playVideo(index);
+      });
+    });
+
+    playVideo(currentIndex);
+  }
+
+  initializePlaylist();
+
+  document.addEventListener('DOMContentLoaded', function () {
+    var playlist = document.getElementById('playlist');
+    var videoPlayer = document.getElementById('video-player');
+    var videoLinks = playlist.getElementsByTagName('a');
+
+    for (var i = 0; i < videoLinks.length; i++) {
+      videoLinks[i].addEventListener('click', function (event) {
+        event.preventDefault();
+        var videoSrc = this.getAttribute('href');
+        videoPlayer.src = videoSrc;
+
+        for (var j = 0; j < videoLinks.length; j++) {
+          videoLinks[j].classList.remove('selected');
+        }
+        this.classList.add('selected');
+      });
+    }
+
+    videoLinks[0].click();
+
+    function atualizarTamanhoPlaylist() {
+      var playlist = document.getElementById('playlist');
+      var tabelaSecundaria = document.getElementById('tabela-secundaria');
+      playlist.style.height = tabelaSecundaria.offsetHeight + 'px';
+    }
+
+    function atualizarPagina() {
+      atualizarTamanhoPlaylist();
+      // Outras atualizações necessárias quando a página é redimensionada
+    }
+
+    atualizarPagina();
+    window.addEventListener('resize', atualizarPagina);
+  });
+
+  var video = document.getElementById("video-player");
+  var progressBar = document.getElementById("progress-bar");
+
+  video.addEventListener("timeupdate", function() {
+    var progress = (video.currentTime / video.duration) * 100;
+    progressBar.value = progress;
+  });
+
+  var progressBar = document.getElementById('progress-bar');
+  var progressContainer = document.getElementById('progress-container');
+
+  progressBar.addEventListener('input', function() {
+    var videoPlayer = document.getElementById('video-player');
+    var time = videoPlayer.duration * (progressBar.value / 100);
+    videoPlayer.currentTime = time;
+  });
+
+  progressContainer.addEventListener('mousedown', function(e) {
+    var position = (e.pageX - this.offsetLeft) / this.offsetWidth;
+    progressBar.value = position * 100;
+    var videoPlayer = document.getElementById('video-player');
+    var time = videoPlayer.duration * (progressBar.value / 100);
+    videoPlayer.currentTime = time;
+  });
+
+  document.addEventListener("DOMContentLoaded", function() {
+    var playlistItems = document.querySelectorAll(".playlist a");
+    var videoPlayer = document.getElementById("video-player");
+
+    playlistItems.forEach(function(item) {
+      item.addEventListener("click", function(e) {
+        e.preventDefault();
+        var videoUrl = this.getAttribute("href");
+        var videoThumbnail = this.querySelector(".thumbnail").getAttribute("src");
+        videoPlayer.src = videoUrl;
+        videoPlayer.poster = videoThumbnail;
+        playlistItems.forEach(function(item) {
+          item.classList.remove("selected");
+        });
+        this.classList.add("selected");
+      });
+    });
+  });
+</script>
+
+<script>
+  // Função para atualizar o tempo do vídeo em forma decrescente
+  function updateTime() {
+    var videoPlayer = document.getElementById("video-player");
+    var timeElement = document.getElementById("time");
+
+    var duration = videoPlayer.duration;
+    var currentTime = videoPlayer.currentTime;
+    var remainingTime = duration - currentTime;
+
+    // Formatação do tempo em minutos e segundos
+    var minutes = Math.floor(remainingTime / 60);
+    var seconds = Math.floor(remainingTime % 60);
+
+    // Adiciona um zero à esquerda se os segundos forem menores que 10
+    if (seconds < 10) {
+      seconds = "0" + seconds;
+    }
+
+    // Atualiza o elemento de exibição do tempo
+    timeElement.innerHTML = minutes + ":" + seconds;
+
+    // Chama a função novamente após 1 segundo
+    setTimeout(updateTime, 1000);
+  }
+
+  // Chama a função updateTime quando o vídeo é carregado
+  var videoPlayer = document.getElementById("video-player");
+  videoPlayer.addEventListener("loadedmetadata", updateTime);
+</script>
+
+</body>
+</html>
