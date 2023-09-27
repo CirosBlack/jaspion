@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>CirosBlack - Jaspion</title>
+	<title>CirosBlack - Yu Yu Hakusho</title>
 	<link rel="shortcut icon" href="https://raw.githubusercontent.com/CirosBlack/jaspion/main/favicon.ico" type="image/x-icon">
 	<style>
     body {
@@ -89,17 +89,21 @@
     
     if (coluna2.style.display === 'none') {
       coluna2.style.display = 'table-cell';
-      button.innerHTML = "Ocultar Playlist";
+      button.innerHTML = '<img src="https://raw.githubusercontent.com/CirosBlack/YuYuHakusho/main/Ocultar_Playlist.png" alt="Ícone Pausar" style="width: 50px; height: 50px;">';
     } else {
       coluna2.style.display = 'none';
-      button.innerHTML = "Mostrar Playlist";
+      button.innerHTML = '<img src="https://raw.githubusercontent.com/CirosBlack/YuYuHakusho/main/Mostar_Playlist.png" alt="Ícone Pausar" style="width: 50px; height: 50px;">';
     }
   }
 </script>
 
 <style>
     .toggle-button {
-      float: right;
+    	float: right;
+      background-color: black; /* Define a cor de fundo como preto */
+            border: none; /* Remove a borda */
+            margin: 0; /* Remove a margem */
+            padding: 0; /* Remove o preenchimento interno */
     }
   </style>
 
@@ -133,6 +137,53 @@
         }
     </style>
     
+    <style>
+        /* Estilo para o botão */
+        #tela-cheia-button {
+            background-color: black; /* Define a cor de fundo como preto */
+            border: none; /* Remove a borda */
+            margin: 0; /* Remove a margem */
+            padding: 0; /* Remove o preenchimento interno */
+        }
+    </style>
+
+    <style>
+        /* Estilo para o botão */
+        #retrocede10s {
+            background-color: black; /* Define a cor de fundo como preto */
+            border: none; /* Remove a borda */
+            margin: 0; /* Remove a margem */
+            padding: 0; /* Remove o preenchimento interno */
+        }
+    </style>
+    
+        <style>
+        /* Estilo para o botão */
+        #avanca10s {
+            background-color: black; /* Define a cor de fundo como preto */
+            border: none; /* Remove a borda */
+            margin: 0; /* Remove a margem */
+            padding: 0; /* Remove o preenchimento interno */
+        }
+    </style>
+    
+     <style>
+        /* Estilo para o botão */
+        #mostrar-controle {
+            background-color: black; /* Define a cor de fundo como preto */
+            border: none; /* Remove a borda */
+            margin: 0; /* Remove a margem */
+            padding: 0; /* Remove o preenchimento interno */
+        }
+    </style>
+    
+    <style>
+        #volume-range {
+            opacity: 0; /* Inicia com opacidade 0 para o fade */
+            transition: opacity 0.5s; /* Adiciona uma transição suave de 0.5 segundos */
+        }
+    </style>
+    
 </head>
 <body>
   <table id="tabela-principal" style="width: 100%;">
@@ -145,7 +196,7 @@
           <tr>
             <td style="border: 1px solid black;">
               <div style="position: relative; width: 100%; height: 0; padding-bottom: 75%;">
-                <video id="video-player" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"  controls autoplay>
+                <video id="video-player" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" preload="auto" controls autoplay>
                   <source src="" type="video/mp4">
                 </video>
               </div>
@@ -158,25 +209,30 @@
     <div id="time" style="color: #fff; float: right; font-size: 12px;"></div>
   </div>
 </td>
-
           </tr>
           <tr>
             <td id="quarta-celula">
-<button id="play-button"><img src="https://raw.githubusercontent.com/CirosBlack/YuYuHakusho/main/Play.png" alt="Ícone Play" style="width: 50px; height: 50px;"></button>
-<button id="previousBtn"><img src="https://raw.githubusercontent.com/CirosBlack/YuYuHakusho/main/Anterior.png" alt="Ícone Play" style="width: 50px; height: 50px;"></button>
-<button id="nextBtn"><img src="https://raw.githubusercontent.com/CirosBlack/YuYuHakusho/main/Anterior.png" alt="Ícone Play" style="width: 50px; height: 50px;"></button></button>
-  <button id="tela-cheia-button">Tela Cheia</button>
-<button id="retrocede10s">- 10 S</button>
-  <button id="avanca10s">+ 10 S</button>
-  <input type="range" id="volume-range"min="0" max="1" step="0.1" value="1">
-    <button class="toggle-button" onclick="toggleColumn()">Ocultar Playlist</button>
+ <button id="play-button"><img src="https://raw.githubusercontent.com/CirosBlack/YuYuHakusho/main/Play.png" alt="Ícone Play" style="width: 50px; height: 50px;"></button>
+<button id="retrocede10s"><img src="https://raw.githubusercontent.com/CirosBlack/YuYuHakusho/main/Voltar_10_segundos.png" alt="Ícone Play" style="width: 50px; height: 50px;"></button>
+<button id="previousBtn"><img src="https://raw.githubusercontent.com/CirosBlack/YuYuHakusho/main/Voltar.png" alt="Ícone Play" style="width: 50px; height: 50px;"></button>
+<button id="nextBtn"><img src="https://raw.githubusercontent.com/CirosBlack/YuYuHakusho/main/Avancar.png" alt="Ícone Play" style="width: 50px; height: 50px;"></button>
+<button id="avanca10s"><img src="https://raw.githubusercontent.com/CirosBlack/YuYuHakusho/main/Avancar_10_segundos.png" alt="Ícone Play" style="width: 50px; height: 50px;"></button>
+<button id="tela-cheia-button"><img src="https://raw.githubusercontent.com/CirosBlack/YuYuHakusho/main/Tela.png" alt="Ícone Play" style="width: 50px; height: 50px;"></button>
+<button class="toggle-button" onclick="toggleColumn()"><img src="https://raw.githubusercontent.com/CirosBlack/YuYuHakusho/main/Ocultar_Playlist.png" alt="Ícone Play" style="width: 50px; height: 50px;"></button>  
+ <button id="mostrar-controle"><img src="https://raw.githubusercontent.com/CirosBlack/YuYuHakusho/main/Volume.png" alt="Ícone Play" style="width: 50px; height: 50px;"></button>
+    <input type="range" id="volume-range" min="0" max="1" step="0.1" value="1">
 </td>
+</tr>
+<tr>
+	<td id="quinta celula">
+	
+		</td>
+		</tr>
         </table>
-      </td>
       <td class="coluna-2" style="border: 1px solid black;">
         <div class="playlist" id="playlist">
         <ul>
-  <li><a href="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/01_O_Planeta_de_Edin.mp4"><img class="thumbnail" src="https://raw.githubusercontent.com/CirosBlack/jaspion/main/01_O_Planeta_de_Edin.jpg"> O Planeta de Edin</a>
+<li><a href="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/01_O_Planeta_de_Edin.mp4"><img class="thumbnail" src="https://raw.githubusercontent.com/CirosBlack/jaspion/main/01_O_Planeta_de_Edin.jpg"> O Planeta de Edin</a>
   <li><a href="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/02_O_triste_fim_de_Sakura.mp4"><img class="thumbnail" src="https://raw.githubusercontent.com/CirosBlack/jaspion/main/02_O_triste_fim_de_Sakura.jpg">O triste fim de Sakura</a></li>
   <li><a href="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/03_O_sonho_do_menino_galactico.mp4"><img class="thumbnail" src="https://raw.githubusercontent.com/CirosBlack/jaspion/main/03_O_sonho_do_menino_galactico.jpg">O sonho do menino galáctico</a></li>
   <li><a href="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/04_A_furia_do_pantano.mp4"><img class="thumbnail" src="https://raw.githubusercontent.com/CirosBlack/jaspion/main/04_A_furia_do_pantano.jpg">A fúria do pântano</a></li>
@@ -227,6 +283,19 @@
       </td>
     </tr>
   </table>
+  
+<script>
+        const botaoMostrar = document.getElementById('mostrar-controle');
+        const controleVolume = document.getElementById('volume-range');
+
+        botaoMostrar.addEventListener('click', () => {
+            if (controleVolume.style.opacity === '0') {
+                controleVolume.style.opacity = '1';
+            } else {
+                controleVolume.style.opacity = '0';
+            }
+        });
+    </script>
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
@@ -307,21 +376,22 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", function() {
-            const botaoReproduzir = document.getElementById("play-button");
-            const botaoTelaCheia = document.getElementById("tela-cheia-button");
-            const faixaVolume = document.getElementById("volume-range");
-            const reprodutorVideo = document.getElementById("video-player");
+    const playButton = document.getElementById("play-button");
+    const telaCheiaButton = document.getElementById("tela-cheia-button");
+    const volumeRange = document.getElementById("volume-range");
+    const videoPlayer = document.getElementById("video-player");
 
-            botaoReproduzir.addEventListener("click", function() {
-                if (reprodutorVideo.paused) {
-                    reprodutorVideo.play();
-                    botaoReproduzir.innerHTML = '<img src="https://raw.githubusercontent.com/CirosBlack/YuYuHakusho/main/Pause.png" alt="Ícone Pausar" style="width: 50px; height: 50px;">';
+    playButton.addEventListener("click", function() {
+      if (videoPlayer.paused) {
+        videoPlayer.play();
+        playButton.innerHTML = '<img src="https://raw.githubusercontent.com/CirosBlack/YuYuHakusho/main/Pause.png" alt="Ícone Pausar" style="width: 50px; height: 50px;">';
                 } else {
-                    reprodutorVideo.pause();
-                    botaoReproduzir.innerHTML = '<img src="https://raw.githubusercontent.com/CirosBlack/YuYuHakusho/main/Play.png" alt="Ícone Play" style="width: 50px; height: 50px;">';
+        videoPlayer.pause();
+                    playButton.innerHTML = '<img src="https://raw.githubusercontent.com/CirosBlack/YuYuHakusho/main/Play.png" alt="Ícone Play" style="width: 50px; height: 50px;">';
                 }
-            });
-       
+		   });
+    
+
     telaCheiaButton.addEventListener("click", function() {
       if (videoPlayer.requestFullscreen) {
         videoPlayer.requestFullscreen();
@@ -477,7 +547,7 @@
   videoPlayer.addEventListener("loadedmetadata", updateTime);
 </script>
 
-    <script>
+<script>
         // Obtenha o elemento de vídeo e o botão
         var meuVideo = document.getElementById("video-player");
         var botaoAvanca10s = document.getElementById("avanca10s");
@@ -500,6 +570,7 @@
             meuVideo.currentTime -= 10;
         });
     </script>
+
 
 </body>
 </html>
