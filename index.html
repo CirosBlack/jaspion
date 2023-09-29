@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>CirosBlack - Yu Yu Hakusho</title>
+	<title>CirosBlack - Jaspion</title>
 	<link rel="shortcut icon" href="https://raw.githubusercontent.com/CirosBlack/jaspion/main/favicon.ico" type="image/x-icon">
 	<style>
     body {
@@ -184,6 +184,23 @@
         }
     </style>
     
+    <style>
+  /* Estilize a tabela para ocupar 100% da largura da página */
+  table {
+    width: 100%;
+  }
+  /* Estilize as células da tabela para não ter espaçamento e alinhar as imagens ao centro */
+  td {
+    padding: 0;
+    text-align: 
+  }
+  /* Estilize as imagens para ocupar 100% da largura da célula */
+  img {
+    width: 100%;
+    height: auto;
+  }
+</style>
+    
 </head>
 <body>
   <table id="tabela-principal" style="width: 100%;">
@@ -223,11 +240,6 @@
     <input type="range" id="volume-range" min="0" max="1" step="0.1" value="1">
 </td>
 </tr>
-<tr>
-	<td id="quinta celula">
-	
-		</td>
-		</tr>
         </table>
       <td class="coluna-2" style="border: 1px solid black;">
         <div class="playlist" id="playlist">
@@ -283,7 +295,33 @@
       </td>
     </tr>
   </table>
-  
+<br>
+	
+<table>
+  <tr>
+    <td>
+      <a href="https://cirosblack.github.io/jaspion">
+        <img src="https://raw.githubusercontent.com/CirosBlack/YuYuHakusho/main/Jaspion%20poster.png" alt="Jaspion">
+      </a>
+    </td>
+    <td>
+      <a href="https://cirosblack.github.io/changeman">
+        <img src="https://raw.githubusercontent.com/CirosBlack/YuYuHakusho/main/ChangemanPoster.png" alt="Yu Yu Hakusho">
+      </a>
+    </td>
+    <td>
+      <a href="https://cirosblack.github.io/flashman">
+        <img src="https://raw.githubusercontent.com/CirosBlack/YuYuHakusho/main/FlashmanPoster.png" alt="Jaspion">
+      </a>
+    </td>
+    <td>
+      <a href="https://cirosblack.github.io/YuYuHakusho">
+        <img src="https://raw.githubusercontent.com/CirosBlack/YuYuHakusho/main/YuYuHakusho%20poster.png" alt="Yu Yu Hakusho">
+      </a>
+    </td>
+  </tr>
+</table>
+
 <script>
         const botaoMostrar = document.getElementById('mostrar-controle');
         const controleVolume = document.getElementById('volume-range');
