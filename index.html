@@ -1,249 +1,251 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>CirosBlack - Jaspion</title>
-	<link rel="shortcut icon" href="https://raw.githubusercontent.com/CirosBlack/jaspion/main/favicon.ico" type="image/x-icon">
-	<style>
-    body {
-      font-family: "Arial Black", Arial, sans-serif;
-      font-weight: bold;
-      text-transform: uppercase;
-      color: #fff;
-      background-color: #1C1C1C;
-    }
-    
-    #tabela-principal {
-      background-color: black;
-    }
-  </style>
-  <style>
-    .coluna-1 {
-      width: 70%;
-    }
-    .coluna-2 {
-      width: 30%;
-    }
-    .largura-responsiva {
-      width: 100%;
-      height: auto;
-    }
-    
-    .playlist {
-      width: 95%;
-      height: 100%;
-      overflow: auto;
-      background-color: black;
-      color: #fff;
-      padding: 10px;
-    }
-    .playlist ul {
-      list-style-type: none;
-      padding-left: 0;
-      margin-top: 0;
-    }
-    .playlist a {
-      display: flex;
-      align-items: center;
-      margin-bottom: 5px;
-      background-color: #1C1C1C;
-      padding: 5px;
-      cursor: pointer;
-      text-decoration: none;
-      border-radius: 10px;
-      border: 1px solid #fff;
-      color: #ccc;
-    }
-    .playlist a:hover {
-      background-color: #666;
-    }
-    .playlist a.selected {
-      background-color: #800000;
-      color: #fff;
-      border-color: #fff;
-    }
-    .playlist video {
-      width: 100%;
-      height: 0;
-      padding-bottom: 75%;
-      border-radius: 10px;
-      border: 1px solid #fff;
-    }
-    .playlist .thumbnail {
-      width: 100px;
-      height: 70px;
-      margin-right: 10px;
-      border-radius: 5%;
-      object-fit: cover;
-    }
-       #video-player::-webkit-media-controls {
-  display: none !important;
-}    
-  </style>
-      <script>
-        document.addEventListener('contextmenu', event => event.preventDefault());
-    </script>
-<script>
-  function toggleColumn() {
-    var button = document.querySelector(".toggle-button");
-    var coluna2 = document.querySelector('.coluna-2');
-    
-    if (coluna2.style.display === 'none') {
-      coluna2.style.display = 'table-cell';
-      button.innerHTML = '<img src="https://raw.githubusercontent.com/CirosBlack/YuYuHakusho/main/Ocultar_Playlist.png" alt="Ícone Pausar" style="width: 50px; height: 50px;">';
-    } else {
-      coluna2.style.display = 'none';
-      button.innerHTML = '<img src="https://raw.githubusercontent.com/CirosBlack/YuYuHakusho/main/Mostar_Playlist.png" alt="Ícone Pausar" style="width: 50px; height: 50px;">';
-    }
-  }
-</script>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>CirosBlack - Jaspion</title>
+	<link rel="shortcut icon" href="https://raw.githubusercontent.com/CirosBlack/jaspion/main/favicon.ico" type="image/x-icon">
+	<style>
+    body {
+      font-family: "Arial Black", Arial, sans-serif;
+      font-weight: bold;
+      text-transform: uppercase;
+      color: #fff;
+      background-color: #1C1C1C;
+    }
+    
+    #tabela-principal {
+      background-color: black;
+    }
+  </style>
+  <style>
+    .coluna-1 {
+      width: 70%;
+    }
+    .coluna-2 {
+      width: 30%;
+    }
+    .largura-responsiva {
+      width: 100%;
+      height: auto;
+    }
+    
+    .playlist {
+      width: 95%;
+      height: 100%;
+      overflow: auto;
+      background-color: black;
+      color: #fff;
+      padding: 10px;
+    }
+    .playlist ul {
+      list-style-type: none;
+      padding-left: 0;
+      margin-top: 0;
+    }
+    .playlist a {
+      display: flex;
+      align-items: center;
+      margin-bottom: 5px;
+      background-color: #1C1C1C;
+      padding: 5px;
+      cursor: pointer;
+      text-decoration: none;
+      border-radius: 10px;
+      border: 1px solid #fff;
+      color: #ccc;
+    }
+    .playlist a:hover {
+      background-color: #666;
+    }
+    .playlist a.selected {
+      background-color: #800000;
+      color: #fff;
+      border-color: #fff;
+    }
+    .playlist video {
+      width: 100%;
+      height: 0;
+      padding-bottom: 75%;
+      border-radius: 10px;
+      border: 1px solid #fff;
+    }
+    .playlist .thumbnail {
+      width: 100px;
+      height: 70px;
+      margin-right: 10px;
+      border-radius: 5%;
+      object-fit: cover;
+    }
+       #video-player::-webkit-media-controls {
+  display: none !important;
+}    
+  </style>
+      <script>
+        document.addEventListener('contextmenu', event => event.preventDefault());
+    </script>
+<script>
+  function toggleColumn() {
+    var button = document.querySelector(".toggle-button");
+    var coluna2 = document.querySelector('.coluna-2');
+    
+    if (coluna2.style.display === 'none') {
+      coluna2.style.display = 'table-cell';
+      button.innerHTML = '<img src="https://raw.githubusercontent.com/CirosBlack/YuYuHakusho/main/Ocultar_Playlist.png" alt="Ícone Pausar" style="width: 50px; height: 50px;">';
+    } else {
+      coluna2.style.display = 'none';
+      button.innerHTML = '<img src="https://raw.githubusercontent.com/CirosBlack/YuYuHakusho/main/Mostar_Playlist.png" alt="Ícone Pausar" style="width: 50px; height: 50px;">';
+    }
+  }
+</script>
+
+<style>
+    .toggle-button {
+    	float: right;
+      background-color: black; /* Define a cor de fundo como preto */
+            border: none; /* Remove a borda */
+            margin: 0; /* Remove a margem */
+            padding: 0; /* Remove o preenchimento interno */
+    }
+  </style>
+
+<style>
+        /* Estilo para o botão */
+        #play-button {
+            background-color: black; /* Define a cor de fundo como preto */
+            border: none; /* Remove a borda */
+            margin: 0; /* Remove a margem */
+            padding: 0; /* Remove o preenchimento interno */
+        }
+    </style>
+    
+    <style>
+        /* Estilo para o botão */
+        #previousBtn {
+            background-color: black; /* Define a cor de fundo como preto */
+            border: none; /* Remove a borda */
+            margin: 0; /* Remove a margem */
+            padding: 0; /* Remove o preenchimento interno */
+        }
+    </style>
+    
+        <style>
+        /* Estilo para o botão */
+        #nextBtn {
+            background-color: black; /* Define a cor de fundo como preto */
+            border: none; /* Remove a borda */
+            margin: 0; /* Remove a margem */
+            padding: 0; /* Remove o preenchimento interno */
+        }
+    </style>
+    
+    <style>
+        /* Estilo para o botão */
+        #tela-cheia-button {
+            background-color: black; /* Define a cor de fundo como preto */
+            border: none; /* Remove a borda */
+            margin: 0; /* Remove a margem */
+            padding: 0; /* Remove o preenchimento interno */
+        }
+    </style>
+
+    <style>
+        /* Estilo para o botão */
+        #retrocede10s {
+            background-color: black; /* Define a cor de fundo como preto */
+            border: none; /* Remove a borda */
+            margin: 0; /* Remove a margem */
+            padding: 0; /* Remove o preenchimento interno */
+        }
+    </style>
+    
+        <style>
+        /* Estilo para o botão */
+        #avanca10s {
+            background-color: black; /* Define a cor de fundo como preto */
+            border: none; /* Remove a borda */
+            margin: 0; /* Remove a margem */
+            padding: 0; /* Remove o preenchimento interno */
+        }
+    </style>
+    
+     <style>
+        /* Estilo para o botão */
+        #mostrar-controle {
+            background-color: black; /* Define a cor de fundo como preto */
+            border: none; /* Remove a borda */
+            margin: 0; /* Remove a margem */
+            padding: 0; /* Remove o preenchimento interno */
+        }
+    </style>
+    
+    <style>
+        #volume-range {
+            opacity: 0; /* Inicia com opacidade 0 para o fade */
+            transition: opacity 0.5s; /* Adiciona uma transição suave de 0.5 segundos */
+        }
+    </style>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        /* Estilo para tornar o iframe responsivo */
+        .embed-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+        }
 
-<style>
-    .toggle-button {
-    	float: right;
-      background-color: black; /* Define a cor de fundo como preto */
-            border: none; /* Remove a borda */
-            margin: 0; /* Remove a margem */
-            padding: 0; /* Remove o preenchimento interno */
-    }
-  </style>
-
-<style>
-        /* Estilo para o botão */
-        #play-button {
-            background-color: black; /* Define a cor de fundo como preto */
-            border: none; /* Remove a borda */
-            margin: 0; /* Remove a margem */
-            padding: 0; /* Remove o preenchimento interno */
+        .embed-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
         }
     </style>
     
-    <style>
-        /* Estilo para o botão */
-        #previousBtn {
-            background-color: black; /* Define a cor de fundo como preto */
-            border: none; /* Remove a borda */
-            margin: 0; /* Remove a margem */
-            padding: 0; /* Remove o preenchimento interno */
-        }
-    </style>
-    
-        <style>
-        /* Estilo para o botão */
-        #nextBtn {
-            background-color: black; /* Define a cor de fundo como preto */
-            border: none; /* Remove a borda */
-            margin: 0; /* Remove a margem */
-            padding: 0; /* Remove o preenchimento interno */
-        }
-    </style>
-    
-    <style>
-        /* Estilo para o botão */
-        #tela-cheia-button {
-            background-color: black; /* Define a cor de fundo como preto */
-            border: none; /* Remove a borda */
-            margin: 0; /* Remove a margem */
-            padding: 0; /* Remove o preenchimento interno */
-        }
-    </style>
-
-    <style>
-        /* Estilo para o botão */
-        #retrocede10s {
-            background-color: black; /* Define a cor de fundo como preto */
-            border: none; /* Remove a borda */
-            margin: 0; /* Remove a margem */
-            padding: 0; /* Remove o preenchimento interno */
-        }
-    </style>
-    
-        <style>
-        /* Estilo para o botão */
-        #avanca10s {
-            background-color: black; /* Define a cor de fundo como preto */
-            border: none; /* Remove a borda */
-            margin: 0; /* Remove a margem */
-            padding: 0; /* Remove o preenchimento interno */
-        }
-    </style>
-    
-     <style>
-        /* Estilo para o botão */
-        #mostrar-controle {
-            background-color: black; /* Define a cor de fundo como preto */
-            border: none; /* Remove a borda */
-            margin: 0; /* Remove a margem */
-            padding: 0; /* Remove o preenchimento interno */
-        }
-    </style>
-    
-    <style>
-        #volume-range {
-            opacity: 0; /* Inicia com opacidade 0 para o fade */
-            transition: opacity 0.5s; /* Adiciona uma transição suave de 0.5 segundos */
-        }
-    </style>
-    
-    <style>
-  /* Estilize a tabela para ocupar 100% da largura da página */
-  table {
-    width: 100%;
-  }
-  /* Estilize as células da tabela para não ter espaçamento e alinhar as imagens ao centro */
-  td {
-    padding: 0;
-    text-align: 
-  }
-  /* Estilize as imagens para ocupar 100% da largura da célula */
-  img {
-    width: 100%;
-    height: auto;
-  }
-</style>
-    
-</head>
-<body>
-  <table id="tabela-principal" style="width: 100%;">
-    <tr>
-      <td class="coluna-1" style="border: 1px solid black;">
-        <table id="tabela-secundaria" class="largura-responsiva" style="border: 1px solid black;">
-          <tr>
-            <td id="primeira-celula" style="border: 1px solid black;"></td>
-          </tr>
-          <tr>
-            <td style="border: 1px solid black;">
-              <div style="position: relative; width: 100%; height: 0; padding-bottom: 75%;">
-                <video id="video-player" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" preload="auto" controls autoplay>
-                  <source src="" type="video/mp4">
-                </video>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td id="terceira-celula" style="border: 1px solid black;">
-  <div>
-    <input type="range" id="progress-bar" min="0" max="100" step="0.1" value="0" style="width: 100%;">
-    <div id="time" style="color: #fff; float: right; font-size: 12px;"></div>
-  </div>
-</td>
-          </tr>
-          <tr>
-            <td id="quarta-celula">
- <button id="play-button"><img src="https://raw.githubusercontent.com/CirosBlack/YuYuHakusho/main/Play.png" alt="Ícone Play" style="width: 50px; height: 50px;"></button>
-<button id="retrocede10s"><img src="https://raw.githubusercontent.com/CirosBlack/YuYuHakusho/main/Voltar_10_segundos.png" alt="Ícone Play" style="width: 50px; height: 50px;"></button>
-<button id="previousBtn"><img src="https://raw.githubusercontent.com/CirosBlack/YuYuHakusho/main/Voltar.png" alt="Ícone Play" style="width: 50px; height: 50px;"></button>
-<button id="nextBtn"><img src="https://raw.githubusercontent.com/CirosBlack/YuYuHakusho/main/Avancar.png" alt="Ícone Play" style="width: 50px; height: 50px;"></button>
-<button id="avanca10s"><img src="https://raw.githubusercontent.com/CirosBlack/YuYuHakusho/main/Avancar_10_segundos.png" alt="Ícone Play" style="width: 50px; height: 50px;"></button>
-<button id="tela-cheia-button"><img src="https://raw.githubusercontent.com/CirosBlack/YuYuHakusho/main/Tela.png" alt="Ícone Play" style="width: 50px; height: 50px;"></button>
-<button class="toggle-button" onclick="toggleColumn()"><img src="https://raw.githubusercontent.com/CirosBlack/YuYuHakusho/main/Ocultar_Playlist.png" alt="Ícone Play" style="width: 50px; height: 50px;"></button>  
- <button id="mostrar-controle"><img src="https://raw.githubusercontent.com/CirosBlack/YuYuHakusho/main/Volume.png" alt="Ícone Play" style="width: 50px; height: 50px;"></button>
-    <input type="range" id="volume-range" min="0" max="1" step="0.1" value="1">
-</td>
-</tr>
-        </table>
-      <td class="coluna-2" style="border: 1px solid black;">
-        <div class="playlist" id="playlist">
-        <ul>
+</head>
+<body>
+  <table id="tabela-principal" style="width: 100%;">
+    <tr>
+      <td class="coluna-1" style="border: 1px solid black;">
+        <table id="tabela-secundaria" class="largura-responsiva" style="border: 1px solid black;">
+          <tr>
+            <td id="primeira-celula" style="border: 1px solid black;"></td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid black;">
+              <div style="position: relative; width: 100%; height: 0; padding-bottom: 75%;">
+                <video id="video-player" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" preload="auto" controls autoplay>
+                  <source src="" type="video/mp4">
+                </video>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td id="terceira-celula" style="border: 1px solid black;">
+  <div>
+    <input type="range" id="progress-bar" min="0" max="100" step="0.1" value="0" style="width: 100%;">
+    <div id="time" style="color: #fff; float: right; font-size: 12px;"></div>
+  </div>
+</td>
+          </tr>
+          <tr>
+            <td id="quarta-celula">
+ <button id="play-button"><img src="https://raw.githubusercontent.com/CirosBlack/YuYuHakusho/main/Play.png" alt="Ícone Play" style="width: 50px; height: 50px;"></button>
+<button id="retrocede10s"><img src="https://raw.githubusercontent.com/CirosBlack/YuYuHakusho/main/Voltar_10_segundos.png" alt="Ícone Play" style="width: 50px; height: 50px;"></button>
+<button id="previousBtn"><img src="https://raw.githubusercontent.com/CirosBlack/YuYuHakusho/main/Voltar.png" alt="Ícone Play" style="width: 50px; height: 50px;"></button>
+<button id="nextBtn"><img src="https://raw.githubusercontent.com/CirosBlack/YuYuHakusho/main/Avancar.png" alt="Ícone Play" style="width: 50px; height: 50px;"></button>
+<button id="avanca10s"><img src="https://raw.githubusercontent.com/CirosBlack/YuYuHakusho/main/Avancar_10_segundos.png" alt="Ícone Play" style="width: 50px; height: 50px;"></button>
+<button id="tela-cheia-button"><img src="https://raw.githubusercontent.com/CirosBlack/YuYuHakusho/main/Tela.png" alt="Ícone Play" style="width: 50px; height: 50px;"></button>
+<button class="toggle-button" onclick="toggleColumn()"><img src="https://raw.githubusercontent.com/CirosBlack/YuYuHakusho/main/Ocultar_Playlist.png" alt="Ícone Play" style="width: 50px; height: 50px;"></button>  
+ <button id="mostrar-controle"><img src="https://raw.githubusercontent.com/CirosBlack/YuYuHakusho/main/Volume.png" alt="Ícone Play" style="width: 50px; height: 50px;"></button>
+    <input type="range" id="volume-range" min="0" max="1" step="0.1" value="1">
+</td>
+</tr>
+        </table>
+      <td class="coluna-2" style="border: 1px solid black;">
+        <div class="playlist" id="playlist">
+        <ul>
 <li><a href="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/01_O_Planeta_de_Edin.mp4"><img class="thumbnail" src="https://raw.githubusercontent.com/CirosBlack/jaspion/main/01_O_Planeta_de_Edin.jpg"> O Planeta de Edin</a>
   <li><a href="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/02_O_triste_fim_de_Sakura.mp4"><img class="thumbnail" src="https://raw.githubusercontent.com/CirosBlack/jaspion/main/02_O_triste_fim_de_Sakura.jpg">O triste fim de Sakura</a></li>
   <li><a href="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/03_O_sonho_do_menino_galactico.mp4"><img class="thumbnail" src="https://raw.githubusercontent.com/CirosBlack/jaspion/main/03_O_sonho_do_menino_galactico.jpg">O sonho do menino galáctico</a></li>
@@ -291,324 +293,304 @@
   <li><a href="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/45_Sou_o_filho_de_Sata_Goss.mp4"><img class="thumbnail" src="https://raw.githubusercontent.com/CirosBlack/jaspion/main/45_Sou_o_filho_de_Sata_Goss.jpg">Sou o filho de Satã Goss!</a>
   <li><a href="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/46_A_uniao_dos_povos_da_Via_Lactea.mp4"><img class="thumbnail" src="https://raw.githubusercontent.com/CirosBlack/jaspion/main/46_A_uniao_dos_povos_da_Via_Lactea.jpg">A união dos povos da Via Láctea</a>
 </ul>
-        </div>
-      </td>
-    </tr>
-  </table>
-<br>
-	
-<table>
-  <tr>
-    <td>
-      <a href="https://cirosblack.github.io/jaspion">
-        <img src="https://raw.githubusercontent.com/CirosBlack/YuYuHakusho/main/Jaspion%20poster.png" alt="Jaspion">
-      </a>
-    </td>
-    <td>
-      <a href="https://cirosblack.github.io/changeman">
-        <img src="https://raw.githubusercontent.com/CirosBlack/YuYuHakusho/main/ChangemanPoster.png" alt="Yu Yu Hakusho">
-      </a>
-    </td>
-    <td>
-      <a href="https://cirosblack.github.io/flashman">
-        <img src="https://raw.githubusercontent.com/CirosBlack/YuYuHakusho/main/FlashmanPoster.png" alt="Jaspion">
-      </a>
-    </td>
-    <td>
-      <a href="https://cirosblack.github.io/YuYuHakusho">
-        <img src="https://raw.githubusercontent.com/CirosBlack/YuYuHakusho/main/YuYuHakusho%20poster.png" alt="Yu Yu Hakusho">
-      </a>
-    </td>
-  </tr>
-</table>
+        </div>
+      </td>
+    </tr>
+  </table>
+<br>
+	
+<div class="embed-container">
+    <iframe src="https://cirosblack.github.io/Bleach/iframe" frameborder="0" allowfullscreen></iframe>
+</div>
 
-<script>
-        const botaoMostrar = document.getElementById('mostrar-controle');
-        const controleVolume = document.getElementById('volume-range');
-
-        botaoMostrar.addEventListener('click', () => {
-            if (controleVolume.style.opacity === '0') {
-                controleVolume.style.opacity = '1';
-            } else {
-                controleVolume.style.opacity = '0';
-            }
-        });
-    </script>
-
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    var playlist = document.getElementById('playlist');
-    var previousBtn = document.getElementById('previousBtn');
-    var nextBtn = document.getElementById('nextBtn');
-
-    var currentIndex = 0;
-    var videos = playlist.getElementsByTagName('a');
-
-    function playVideo(index) {
-      if (index >= 0 && index < videos.length) {
-        var videoPlayer = document.getElementById('video-player');
-        var source = videos[index].getAttribute('href');
-        videoPlayer.src = source;
-        videoPlayer.load();
-        videoPlayer.play();
-
-        const tabelaSecundariaCelula1 = document.querySelector('#primeira-celula');
-        tabelaSecundariaCelula1.textContent = `Você está assistindo: ${videos[index].textContent.trim()}`;
-
-        // Remove a classe 'selected' de todos os vídeos da playlist
-        for (var i = 0; i < videos.length; i++) {
-          videos[i].classList.remove('selected');
-        }
-
-        // Adiciona a classe 'selected' ao vídeo atual na playlist
-        videos[index].classList.add('selected');
-
-        currentIndex = index; // Atualiza o índice atual para corresponder ao vídeo reproduzido
-      }
-    }
-
-    previousBtn.addEventListener('click', function() {
-      currentIndex--;
-      if (currentIndex < 0) {
-        currentIndex = videos.length - 1; // Volta para o último vídeo da playlist se estiver no primeiro vídeo
-      }
-      playVideo(currentIndex);
-    });
-
-    nextBtn.addEventListener('click', function() {
-      currentIndex++;
-      if (currentIndex >= videos.length) {
-        currentIndex = 0; // Volta para o primeiro vídeo da playlist se estiver no último vídeo
-      }
-      playVideo(currentIndex);
-    });
-
-    var playlistItems = playlist.querySelectorAll('a');
-    playlistItems.forEach((playlistItem, index) => {
-      playlistItem.addEventListener('click', () => {
-        playVideo(index);
-        currentIndex = index;
-
-        // Remove a classe 'selected' de todos os vídeos da playlist
-        for (var i = 0; i < videos.length; i++) {
-          videos[i].classList.remove('selected');
-        }
-
-        // Adiciona a classe 'selected' ao vídeo atual na playlist
-        videos[index].classList.add('selected');
-      });
-    });
-
-    var videoPlayer = document.getElementById('video-player');
-
-    videoPlayer.addEventListener('ended', function() {
-      currentIndex++;
-      if (currentIndex >= videos.length) {
-        currentIndex = 0; // Volta para o primeiro vídeo da playlist se estiver no último vídeo
-      }
-      playVideo(currentIndex);
-    });
-  });
-</script>
-
-
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    const playButton = document.getElementById("play-button");
-    const telaCheiaButton = document.getElementById("tela-cheia-button");
-    const volumeRange = document.getElementById("volume-range");
-    const videoPlayer = document.getElementById("video-player");
-
-    playButton.addEventListener("click", function() {
-      if (videoPlayer.paused) {
-        videoPlayer.play();
-        playButton.innerHTML = '<img src="https://raw.githubusercontent.com/CirosBlack/YuYuHakusho/main/Pause.png" alt="Ícone Pausar" style="width: 50px; height: 50px;">';
-                } else {
-        videoPlayer.pause();
-                    playButton.innerHTML = '<img src="https://raw.githubusercontent.com/CirosBlack/YuYuHakusho/main/Play.png" alt="Ícone Play" style="width: 50px; height: 50px;">';
-                }
-		   });
-    
-
-    telaCheiaButton.addEventListener("click", function() {
-      if (videoPlayer.requestFullscreen) {
-        videoPlayer.requestFullscreen();
-      } else if (videoPlayer.mozRequestFullScreen) { // Firefox
-        videoPlayer.mozRequestFullScreen();
-      } else if (videoPlayer.webkitRequestFullscreen) { // Chrome, Safari and Opera
-        videoPlayer.webkitRequestFullscreen();
-      } else if (videoPlayer.msRequestFullscreen) { // IE/Edge
-        videoPlayer.msRequestFullscreen();
-      }
-    });
-
-    volumeRange.addEventListener("input", function() {
-      videoPlayer.volume = volumeRange.value;
-    });
-  });
-
-  function initializePlaylist() {
-    const playlistItems = document.querySelectorAll('.playlist a');
-    const videoPlayer = document.getElementById('video-player');
-    let currentIndex = 0;
-
-    function playVideo(index) {
-      const source = playlistItems[index].getAttribute('href');
-      videoPlayer.src = source;
-      playlistItems.forEach(playlistItem => {
-        playlistItem.classList.remove('selected');
-      });
-      playlistItems[index].classList.add('selected');
-      const tabelaSecundariaCelula1 = document.querySelector('#primeira-celula');
-      tabelaSecundariaCelula1.textContent = `Você está assistindo: ${playlistItems[index].textContent.trim()}`;
-    }
-
-    playlistItems.forEach((playlistItem, index) => {
-      playlistItem.addEventListener('click', () => {
-        playVideo(index);
-      });
-    });
-
-    playVideo(currentIndex);
-  }
-
-  initializePlaylist();
-
-  document.addEventListener('DOMContentLoaded', function () {
-    var playlist = document.getElementById('playlist');
-    var videoPlayer = document.getElementById('video-player');
-    var videoLinks = playlist.getElementsByTagName('a');
-
-    for (var i = 0; i < videoLinks.length; i++) {
-      videoLinks[i].addEventListener('click', function (event) {
-        event.preventDefault();
-        var videoSrc = this.getAttribute('href');
-        videoPlayer.src = videoSrc;
-
-        for (var j = 0; j < videoLinks.length; j++) {
-          videoLinks[j].classList.remove('selected');
-        }
-        this.classList.add('selected');
-      });
-    }
-
-    videoLinks[0].click();
-
-    function atualizarTamanhoPlaylist() {
-      var playlist = document.getElementById('playlist');
-      var tabelaSecundaria = document.getElementById('tabela-secundaria');
-      playlist.style.height = tabelaSecundaria.offsetHeight + 'px';
-    }
-
-    function atualizarPagina() {
-      atualizarTamanhoPlaylist();
-      // Outras atualizações necessárias quando a página é redimensionada
-    }
-
-    atualizarPagina();
-    window.addEventListener('resize', atualizarPagina);
-  });
-
-  var video = document.getElementById("video-player");
-  var progressBar = document.getElementById("progress-bar");
-
-  video.addEventListener("timeupdate", function() {
-    var progress = (video.currentTime / video.duration) * 100;
-    progressBar.value = progress;
-  });
-
-  var progressBar = document.getElementById('progress-bar');
-  var progressContainer = document.getElementById('progress-container');
-
-  progressBar.addEventListener('input', function() {
-    var videoPlayer = document.getElementById('video-player');
-    var time = videoPlayer.duration * (progressBar.value / 100);
-    videoPlayer.currentTime = time;
-  });
-
-  progressContainer.addEventListener('mousedown', function(e) {
-    var position = (e.pageX - this.offsetLeft) / this.offsetWidth;
-    progressBar.value = position * 100;
-    var videoPlayer = document.getElementById('video-player');
-    var time = videoPlayer.duration * (progressBar.value / 100);
-    videoPlayer.currentTime = time;
-  });
-
-  document.addEventListener("DOMContentLoaded", function() {
-    var playlistItems = document.querySelectorAll(".playlist a");
-    var videoPlayer = document.getElementById("video-player");
-
-    playlistItems.forEach(function(item) {
-      item.addEventListener("click", function(e) {
-        e.preventDefault();
-        var videoUrl = this.getAttribute("href");
-        var videoThumbnail = this.querySelector(".thumbnail").getAttribute("src");
-        videoPlayer.src = videoUrl;
-        videoPlayer.poster = videoThumbnail;
-        playlistItems.forEach(function(item) {
-          item.classList.remove("selected");
-        });
-        this.classList.add("selected");
-      });
-    });
-  });
-</script>
-
-<script>
-  // Função para atualizar o tempo do vídeo em forma decrescente
-  function updateTime() {
-    var videoPlayer = document.getElementById("video-player");
-    var timeElement = document.getElementById("time");
-
-    var duration = videoPlayer.duration;
-    var currentTime = videoPlayer.currentTime;
-    var remainingTime = duration - currentTime;
-
-    // Formatação do tempo em minutos e segundos
-    var minutes = Math.floor(remainingTime / 60);
-    var seconds = Math.floor(remainingTime % 60);
-
-    // Adiciona um zero à esquerda se os segundos forem menores que 10
-    if (seconds < 10) {
-      seconds = "0" + seconds;
-    }
-
-    // Atualiza o elemento de exibição do tempo
-    timeElement.innerHTML = minutes + ":" + seconds;
-
-    // Chama a função novamente após 1 segundo
-    setTimeout(updateTime, 1000);
-  }
-
-  // Chama a função updateTime quando o vídeo é carregado
-  var videoPlayer = document.getElementById("video-player");
-  videoPlayer.addEventListener("loadedmetadata", updateTime);
-</script>
-
-<script>
-        // Obtenha o elemento de vídeo e o botão
-        var meuVideo = document.getElementById("video-player");
-        var botaoAvanca10s = document.getElementById("avanca10s");
-
-        // Adicione um evento de clique ao botão
-        botaoAvanca10s.addEventListener("click", function() {
-            // Avance o vídeo em 10 segundos
-            meuVideo.currentTime += 10;
-        });
-    </script>
-    
-    <script>
-        // Obtenha o elemento de vídeo e o botão
-        var meuVideo = document.getElementById("video-player");
-        var botaoRetrocede10s = document.getElementById("retrocede10s");
-
-        // Adicione um evento de clique ao botão
-        botaoRetrocede10s.addEventListener("click", function() {
-            // Retroceda o vídeo em 10 segundos
-            meuVideo.currentTime -= 10;
-        });
-    </script>
-
-
-</body>
+
+<script>
+        const botaoMostrar = document.getElementById('mostrar-controle');
+        const controleVolume = document.getElementById('volume-range');
+
+        botaoMostrar.addEventListener('click', () => {
+            if (controleVolume.style.opacity === '0') {
+                controleVolume.style.opacity = '1';
+            } else {
+                controleVolume.style.opacity = '0';
+            }
+        });
+    </script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var playlist = document.getElementById('playlist');
+    var previousBtn = document.getElementById('previousBtn');
+    var nextBtn = document.getElementById('nextBtn');
+
+    var currentIndex = 0;
+    var videos = playlist.getElementsByTagName('a');
+
+    function playVideo(index) {
+      if (index >= 0 && index < videos.length) {
+        var videoPlayer = document.getElementById('video-player');
+        var source = videos[index].getAttribute('href');
+        videoPlayer.src = source;
+        videoPlayer.load();
+        videoPlayer.play();
+
+        const tabelaSecundariaCelula1 = document.querySelector('#primeira-celula');
+        tabelaSecundariaCelula1.textContent = `Você está assistindo: ${videos[index].textContent.trim()}`;
+
+        // Remove a classe 'selected' de todos os vídeos da playlist
+        for (var i = 0; i < videos.length; i++) {
+          videos[i].classList.remove('selected');
+        }
+
+        // Adiciona a classe 'selected' ao vídeo atual na playlist
+        videos[index].classList.add('selected');
+
+        currentIndex = index; // Atualiza o índice atual para corresponder ao vídeo reproduzido
+      }
+    }
+
+    previousBtn.addEventListener('click', function() {
+      currentIndex--;
+      if (currentIndex < 0) {
+        currentIndex = videos.length - 1; // Volta para o último vídeo da playlist se estiver no primeiro vídeo
+      }
+      playVideo(currentIndex);
+    });
+
+    nextBtn.addEventListener('click', function() {
+      currentIndex++;
+      if (currentIndex >= videos.length) {
+        currentIndex = 0; // Volta para o primeiro vídeo da playlist se estiver no último vídeo
+      }
+      playVideo(currentIndex);
+    });
+
+    var playlistItems = playlist.querySelectorAll('a');
+    playlistItems.forEach((playlistItem, index) => {
+      playlistItem.addEventListener('click', () => {
+        playVideo(index);
+        currentIndex = index;
+
+        // Remove a classe 'selected' de todos os vídeos da playlist
+        for (var i = 0; i < videos.length; i++) {
+          videos[i].classList.remove('selected');
+        }
+
+        // Adiciona a classe 'selected' ao vídeo atual na playlist
+        videos[index].classList.add('selected');
+      });
+    });
+
+    var videoPlayer = document.getElementById('video-player');
+
+    videoPlayer.addEventListener('ended', function() {
+      currentIndex++;
+      if (currentIndex >= videos.length) {
+        currentIndex = 0; // Volta para o primeiro vídeo da playlist se estiver no último vídeo
+      }
+      playVideo(currentIndex);
+    });
+  });
+</script>
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const playButton = document.getElementById("play-button");
+    const telaCheiaButton = document.getElementById("tela-cheia-button");
+    const volumeRange = document.getElementById("volume-range");
+    const videoPlayer = document.getElementById("video-player");
+
+    playButton.addEventListener("click", function() {
+      if (videoPlayer.paused) {
+        videoPlayer.play();
+        playButton.innerHTML = '<img src="https://raw.githubusercontent.com/CirosBlack/YuYuHakusho/main/Pause.png" alt="Ícone Pausar" style="width: 50px; height: 50px;">';
+                } else {
+        videoPlayer.pause();
+                    playButton.innerHTML = '<img src="https://raw.githubusercontent.com/CirosBlack/YuYuHakusho/main/Play.png" alt="Ícone Play" style="width: 50px; height: 50px;">';
+                }
+		   });
+    
+
+    telaCheiaButton.addEventListener("click", function() {
+      if (videoPlayer.requestFullscreen) {
+        videoPlayer.requestFullscreen();
+      } else if (videoPlayer.mozRequestFullScreen) { // Firefox
+        videoPlayer.mozRequestFullScreen();
+      } else if (videoPlayer.webkitRequestFullscreen) { // Chrome, Safari and Opera
+        videoPlayer.webkitRequestFullscreen();
+      } else if (videoPlayer.msRequestFullscreen) { // IE/Edge
+        videoPlayer.msRequestFullscreen();
+      }
+    });
+
+    volumeRange.addEventListener("input", function() {
+      videoPlayer.volume = volumeRange.value;
+    });
+  });
+
+  function initializePlaylist() {
+    const playlistItems = document.querySelectorAll('.playlist a');
+    const videoPlayer = document.getElementById('video-player');
+    let currentIndex = 0;
+
+    function playVideo(index) {
+      const source = playlistItems[index].getAttribute('href');
+      videoPlayer.src = source;
+      playlistItems.forEach(playlistItem => {
+        playlistItem.classList.remove('selected');
+      });
+      playlistItems[index].classList.add('selected');
+      const tabelaSecundariaCelula1 = document.querySelector('#primeira-celula');
+      tabelaSecundariaCelula1.textContent = `Você está assistindo: ${playlistItems[index].textContent.trim()}`;
+    }
+
+    playlistItems.forEach((playlistItem, index) => {
+      playlistItem.addEventListener('click', () => {
+        playVideo(index);
+      });
+    });
+
+    playVideo(currentIndex);
+  }
+
+  initializePlaylist();
+
+  document.addEventListener('DOMContentLoaded', function () {
+    var playlist = document.getElementById('playlist');
+    var videoPlayer = document.getElementById('video-player');
+    var videoLinks = playlist.getElementsByTagName('a');
+
+    for (var i = 0; i < videoLinks.length; i++) {
+      videoLinks[i].addEventListener('click', function (event) {
+        event.preventDefault();
+        var videoSrc = this.getAttribute('href');
+        videoPlayer.src = videoSrc;
+
+        for (var j = 0; j < videoLinks.length; j++) {
+          videoLinks[j].classList.remove('selected');
+        }
+        this.classList.add('selected');
+      });
+    }
+
+    videoLinks[0].click();
+
+    function atualizarTamanhoPlaylist() {
+      var playlist = document.getElementById('playlist');
+      var tabelaSecundaria = document.getElementById('tabela-secundaria');
+      playlist.style.height = tabelaSecundaria.offsetHeight + 'px';
+    }
+
+    function atualizarPagina() {
+      atualizarTamanhoPlaylist();
+      // Outras atualizações necessárias quando a página é redimensionada
+    }
+
+    atualizarPagina();
+    window.addEventListener('resize', atualizarPagina);
+  });
+
+  var video = document.getElementById("video-player");
+  var progressBar = document.getElementById("progress-bar");
+
+  video.addEventListener("timeupdate", function() {
+    var progress = (video.currentTime / video.duration) * 100;
+    progressBar.value = progress;
+  });
+
+  var progressBar = document.getElementById('progress-bar');
+  var progressContainer = document.getElementById('progress-container');
+
+  progressBar.addEventListener('input', function() {
+    var videoPlayer = document.getElementById('video-player');
+    var time = videoPlayer.duration * (progressBar.value / 100);
+    videoPlayer.currentTime = time;
+  });
+
+  progressContainer.addEventListener('mousedown', function(e) {
+    var position = (e.pageX - this.offsetLeft) / this.offsetWidth;
+    progressBar.value = position * 100;
+    var videoPlayer = document.getElementById('video-player');
+    var time = videoPlayer.duration * (progressBar.value / 100);
+    videoPlayer.currentTime = time;
+  });
+
+  document.addEventListener("DOMContentLoaded", function() {
+    var playlistItems = document.querySelectorAll(".playlist a");
+    var videoPlayer = document.getElementById("video-player");
+
+    playlistItems.forEach(function(item) {
+      item.addEventListener("click", function(e) {
+        e.preventDefault();
+        var videoUrl = this.getAttribute("href");
+        var videoThumbnail = this.querySelector(".thumbnail").getAttribute("src");
+        videoPlayer.src = videoUrl;
+        videoPlayer.poster = videoThumbnail;
+        playlistItems.forEach(function(item) {
+          item.classList.remove("selected");
+        });
+        this.classList.add("selected");
+      });
+    });
+  });
+</script>
+
+<script>
+  // Função para atualizar o tempo do vídeo em forma decrescente
+  function updateTime() {
+    var videoPlayer = document.getElementById("video-player");
+    var timeElement = document.getElementById("time");
+
+    var duration = videoPlayer.duration;
+    var currentTime = videoPlayer.currentTime;
+    var remainingTime = duration - currentTime;
+
+    // Formatação do tempo em minutos e segundos
+    var minutes = Math.floor(remainingTime / 60);
+    var seconds = Math.floor(remainingTime % 60);
+
+    // Adiciona um zero à esquerda se os segundos forem menores que 10
+    if (seconds < 10) {
+      seconds = "0" + seconds;
+    }
+
+    // Atualiza o elemento de exibição do tempo
+    timeElement.innerHTML = minutes + ":" + seconds;
+
+    // Chama a função novamente após 1 segundo
+    setTimeout(updateTime, 1000);
+  }
+
+  // Chama a função updateTime quando o vídeo é carregado
+  var videoPlayer = document.getElementById("video-player");
+  videoPlayer.addEventListener("loadedmetadata", updateTime);
+</script>
+
+<script>
+        // Obtenha o elemento de vídeo e o botão
+        var meuVideo = document.getElementById("video-player");
+        var botaoAvanca10s = document.getElementById("avanca10s");
+
+        // Adicione um evento de clique ao botão
+        botaoAvanca10s.addEventListener("click", function() {
+            // Avance o vídeo em 10 segundos
+            meuVideo.currentTime += 10;
+        });
+    </script>
+    
+    <script>
+        // Obtenha o elemento de vídeo e o botão
+        var meuVideo = document.getElementById("video-player");
+        var botaoRetrocede10s = document.getElementById("retrocede10s");
+
+        // Adicione um evento de clique ao botão
+        botaoRetrocede10s.addEventListener("click", function() {
+            // Retroceda o vídeo em 10 segundos
+            meuVideo.currentTime -= 10;
+        });
+    </script>
+
+
+</body>
 </html>
