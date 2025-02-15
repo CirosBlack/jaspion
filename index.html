@@ -1,1 +1,409 @@
-<!DOCTYPE html><html lang="pt"><head>  <meta charset="UTF-8">  <meta http-equiv="X-UA-Compatible" content="IE=Edge">  <meta name="viewport" content="width=device-width, initial-scale=1">  <title>Yu Yu Hakusho</title>    <style>/* Estilo base comum a ambos os modos de orientação */@media (orientation: portrait) {  * {    margin: 0;    padding: 0;    box-sizing: border-box;    background-color: black;    font-family: "Arial Black", Arial, sans-serif;    font-weight: bold;    text-transform: uppercase;  }  .container {    display: flex;    flex-direction: row;    height: 100vh;    width: 100vw;  }  .video {    flex: 0 0 70vw;    display: flex;    flex-direction: column;  }  .video-player,  .progress-bar {    width: 75vw;    background: black;  }  .progress-bar {    height: 1vw;  }  .playlist {    flex: 1 1 auto;    background: black;    height: 61.25vw;    overflow-y: auto;  }  .playlist ul {    list-style-type: none;    padding-left: 0;    margin-top: 0;  }  .playlist a {    font-weight: bold;    font-size: 22px;    display: flex;    align-items: center;    margin-bottom: 5px;    background-color: #1C1C1C;    padding: 5px;    cursor: pointer;    text-decoration: none;    border-radius: 10px;    border: 1px solid #fff;    color: #ccc;    width: 100%;  }  .playlist a:hover {    background-color: #666;  }  .playlist a.selected {    background-color: #800000;    color: #fff;    border-color: #fff;  }  .playlist .thumbnail {    width: 130px;    height: 100px;    margin-right: 10px;    border-radius: 5%;    object-fit: cover;  }  .container {    flex-direction: column;  }  .playlist {    width: 100vw;  }  video {    width: 100%;    height: auto;  }}@media (orientation: landscape) {  /* Estilo CSS para o modo paisagem */  * {    margin: 0;    padding: 0;    box-sizing: border-box;    background-color: black;    font-family: "Arial Black", Arial, sans-serif;    font-weight: bold;    text-transform: uppercase;  }  .container {    display: flex;    flex-direction: row;    height: 100vh;    width: 100vw;          }  .video {    flex: 0 0 63vw;    display: flex;    flex-direction: column;      }  .video-player,  .progress-bar {    width: 75vw;    background: black;  }  .progress-bar {    height: 1vw;  }  .playlist {    margin-left: 10px;    flex: 1 1 auto;    background: black;    height: 61.25vw;    overflow-y: auto;  }  .playlist ul {    list-style-type: none;    padding-left: 0;    margin-top: 0;  }  .playlist a {    font-weight: bold;    font-size: 22px;    display: flex;    align-items: center;    margin-bottom: 5px;    background-color: #1C1C1C;    padding: 5px;    cursor: pointer;    text-decoration: none;    border-radius: 10px;    border: 1px solid #fff;    color: #ccc;    width: 100%;  }  .playlist a:hover {    background-color: #666;  }  .playlist a.selected {    background-color: #800000;    color: #fff;    border-color: #fff;  }  .playlist .thumbnail {    width: 130px;    height: 100px;    margin-right: 10px;    border-radius: 5%;    object-fit: cover;  }  video {    width: 100%;    height: auto;  }  .playlist {    width: 30%;    height: inherit;  }}.btnc button {    border: none;    outline: none;}    #tempoAtual {     color: white;    font-weight: bold;    text-align: right;  }    .playlist a.playing {    color: yellow;}        #player::-webkit-media-controls {      display: none !important;</style>   </head><body>  <div class="container">    <div class="video">      <video id="player" autoplay poster="https://raw.githubusercontent.com/CirosBlack/jaspion/main/Jaspion.jpeg">        <source src="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/01_O_Planeta_de_Edin.mp4" type="video/mp4">      </video>      <input id="range" type="range" value="0" max="1000" class="range" style="width: 100%;">      <span id="tempoAtual" style="color: white; font-weight: bold; text-align: right; font-size: 22px;"></span>      <!-- Adicionando um parágrafo para exibir o título -->      <p id="tituloVideo" style="color: white; font-weight: bold; text-align: left; font-size: 22px;"></p>      <p id="videoPausado" style="color: white; font-weight: bold; text-align: left; font-size: 22px; display: none;">Vídeo Pausado!</p>          <div class="btnc">        <button id="play-button"><img src="https://raw.githubusercontent.com/CirosBlack/YuYuHakusho/main/Play.png" alt="Ícone Play" style="width: 50px; height: 50px;"></button>        <button id="retrocede10s"><img src="https://raw.githubusercontent.com/CirosBlack/YuYuHakusho/main/Voltar_10_segundos.png" alt="Ícone Play" style="width: 50px; height: 50px;"></button>        <button id="previousBtn"><img src="https://raw.githubusercontent.com/CirosBlack/YuYuHakusho/main/Voltar.png" alt="Ícone Play" style="width: 50px; height: 50px;"></button>        <button id="nextBtn"><img src="https://raw.githubusercontent.com/CirosBlack/YuYuHakusho/main/Avancar.png" alt="Ícone Play" style="width: 50px; height: 50px;"></button>        <button id="avanca10s"><img src="https://raw.githubusercontent.com/CirosBlack/YuYuHakusho/main/Avancar_10_segundos.png" alt="Ícone Play" style="width: 50px; height: 50px;"></button>        <button id="tela-cheia-button"><img src="https://raw.githubusercontent.com/CirosBlack/YuYuHakusho/main/Tela.png" alt="Ícone Play" style="width: 50px; height: 50px;"></button>        <button type="button" class="OctPlay"><img src="https://raw.githubusercontent.com/CirosBlack/YuYuHakusho/main/Ocultar_Playlist.png" alt="Ícone Play" style="width: 50px; height: 50px;"></button>        <button id="mostrar-controle"><img src="https://raw.githubusercontent.com/CirosBlack/YuYuHakusho/main/Volume.png" alt="Ícone Play" style="width: 50px; height: 50px;"></button>        <input type="range" id="controle-volume" min="0" max="1" step="0.01" value="1" style="display: none;">      </div>    </div>      <div class="playlist">      <ul id="videos">      	<li><a href="#" data-src="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/01_O_Planeta_de_Edin.mp4"><img class="thumbnail" src="https://raw.githubusercontent.com/CirosBlack/jaspion/main/01_O_Planeta_de_Edin.jpg"> O Planeta de Edin</a><li><a href="#" data-src="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/02_O_Triste_Fim_De_Sakura.mp4"><img class="thumbnail" src="https://raw.githubusercontent.com/CirosBlack/jaspion/main/02_O_Triste_Fim_De_Sakura.jpg"> O Triste Fim de Sakura</a><li><a href="#" data-src="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/03_O_Sonho_Do_Menino_Galactico.mp4"><img class="thumbnail" src="https://raw.githubusercontent.com/CirosBlack/jaspion/main/03_O_Sonho_Do_Menino_Galactico.jpg"> O Sonho do Menino Galáctico</a><li><a href="#" data-src="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/04_A_Furia_Do_Pantano.mp4"><img class="thumbnail" src="https://raw.githubusercontent.com/CirosBlack/jaspion/main/04_A_Furia_Do_Pantano.jpg"> A Fúria do Pântano</a><li><a href="#" data-src="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/05_O_Enigma_Da_Flauta.mp4"><img class="thumbnail" src="https://raw.githubusercontent.com/CirosBlack/jaspion/main/05_O_Enigma_Da_Flauta.jpg"> O Enigma da Flauta</a><li><a href="#" data-src="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/06_Gordon_Em_Busca_Da_Mae.mp4"><img class="thumbnail" src="https://raw.githubusercontent.com/CirosBlack/jaspion/main/06_Gordon_Em_Busca_Da_Mae.jpg"> Gordon em Busca da Mãe</a><li><a href="#" data-src="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/07_O_Demonio_Da_Montanha.mp4"><img class="thumbnail" src="https://raw.githubusercontent.com/CirosBlack/jaspion/main/07_O_Demonio_Da_Montanha.jpg"> O Demônio da Montanha</a><li><a href="#" data-src="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/08_O_Casal_Fugitivo.mp4"><img class="thumbnail" src="https://raw.githubusercontent.com/CirosBlack/jaspion/main/08_O_Casal_Fugitivo.jpg"> O Casal Fugitivo</a><li><a href="#" data-src="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/09_A_Historia_De_Uma_Arvore.mp4"><img class="thumbnail" src="https://raw.githubusercontent.com/CirosBlack/jaspion/main/09_A_Historia_De_Uma_Arvore.jpg"> A História de uma Árvore</a><li><a href="#" data-src="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/10_O_Ataque_Do_Pyrossauro.mp4"><img class="thumbnail" src="https://raw.githubusercontent.com/CirosBlack/jaspion/main/10_O_Ataque_Do_Pyrossauro.jpg"> O Ataque do Pyrossauro</a><li><a href="#" data-src="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/11_Perigo_Em_Tsukuba.mp4"><img class="thumbnail" src="https://raw.githubusercontent.com/CirosBlack/jaspion/main/11_Perigo_Em_Tsukuba.jpg"> Perigo em Tsukuba</a><li><a href="#" data-src="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/12_A_Profecia.mp4"><img class="thumbnail" src="https://raw.githubusercontent.com/CirosBlack/jaspion/main/12_A_Profecia.jpg"> A Profecia</a><li><a href="#" data-src="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/13_A_Investida_Dos_Aliados_Espaciais.mp4"><img class="thumbnail" src="https://raw.githubusercontent.com/CirosBlack/jaspion/main/13_A_Investida_Dos_Aliados_Espaciais.jpg"> A Investida dos Aliados Espaciais</a><li><a href="#" data-src="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/14_Perigo_Na_Lagoa_Dos_Noivos.mp4"><img class="thumbnail" src="https://raw.githubusercontent.com/CirosBlack/jaspion/main/14_Perigo_Na_Lagoa_Dos_Noivos.jpg"> Perigo na Lagoa dos Noivos</a><li><a href="#" data-src="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/15_Sonho_Ou_Ilusao_A_Imagem_Dourada.mp4"><img class="thumbnail" src="https://raw.githubusercontent.com/CirosBlack/jaspion/main/15_Sonho_Ou_Ilusao_A_Imagem_Dourada.jpg"> Sonho ou Ilusão? A Imagem Dourada</a><li><a href="#" data-src="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/16_Qual_O_Destino_Da_Humanidade.mp4"><img class="thumbnail" src="https://raw.githubusercontent.com/CirosBlack/jaspion/main/16_Qual_O_Destino_Da_Humanidade.jpg"> Qual o Destino da Humanidade?</a><li><a href="#" data-src="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/17_O_Misterio_Do_Passaro_Dourado.mp4"><img class="thumbnail" src="https://raw.githubusercontent.com/CirosBlack/jaspion/main/17_O_Misterio_Do_Passaro_Dourado.jpg"> O Mistério do Pássaro Dourado</a><li><a href="#" data-src="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/18_O_Inimigo_Imortal.mp4"><img class="thumbnail" src="https://raw.githubusercontent.com/CirosBlack/jaspion/main/18_O_Inimigo_Imortal.jpg"> O Inimigo Imortal</a><li><a href="#" data-src="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/19_Alerta_No_Oceano.mp4"><img class="thumbnail" src="https://raw.githubusercontent.com/CirosBlack/jaspion/main/19_Alerta_No_Oceano.jpg"> Alerta no Oceano</a><li><a href="#" data-src="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/20_A_Ultima_Chance.mp4"><img class="thumbnail" src="https://raw.githubusercontent.com/CirosBlack/jaspion/main/20_A_Ultima_Chance.jpg"> A Última Chance</a><li><a href="#" data-src="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/21_O_Valente_Garoto_Jogador.mp4"><img class="thumbnail" src="https://raw.githubusercontent.com/CirosBlack/jaspion/main/21_O_Valente_Garoto_Jogador.jpg"> O Valente Garoto Jogador</a><li><a href="#" data-src="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/22_O_Feitico_De_Titania.mp4"><img class="thumbnail" src="https://raw.githubusercontent.com/CirosBlack/jaspion/main/22_O_Feitico_De_Titania.jpg"> O Feitiço de Titânia</a><li><a href="#" data-src="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/23_O_Monstro_Do_Seculo.mp4"><img class="thumbnail" src="https://raw.githubusercontent.com/CirosBlack/jaspion/main/23_O_Monstro_Do_Seculo.jpg"> O Monstro do Século</a><li><a href="#" data-src="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/24_Ambicao_Perigosa.mp4"><img class="thumbnail" src="https://raw.githubusercontent.com/CirosBlack/jaspion/main/24_Ambicao_Perigosa.jpg"> Ambição Perigosa</a><li><a href="#" data-src="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/25_Tokio_Em_Perigo.mp4"><img class="thumbnail" src="https://raw.githubusercontent.com/CirosBlack/jaspion/main/25_Tokio_Em_Perigo.jpg"> Tókio em Perigo</a><li><a href="#" data-src="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/26_Contra_Ataque_De_Daileon.mp4"><img class="thumbnail" src="https://raw.githubusercontent.com/CirosBlack/jaspion/main/26_Contra_Ataque_De_Daileon.jpg"> Contra Ataque de Daileon</a><li><a href="#" data-src="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/27_Juventude_Ameacadora.mp4"><img class="thumbnail" src="https://raw.githubusercontent.com/CirosBlack/jaspion/main/27_Juventude_Ameacadora.jpg"> Juventude Ameaçadora</a><li><a href="#" data-src="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/28_Dados_Mortais_Do_Monstro_Eletronico.mp4"><img class="thumbnail" src="https://raw.githubusercontent.com/CirosBlack/jaspion/main/28_Dados_Mortais_Do_Monstro_Eletronico.jpg"> Dados Mortais do Monstro Eletrônico</a><li><a href="#" data-src="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/29_A_Morte_De_Macgaren.mp4"><img class="thumbnail" src="https://raw.githubusercontent.com/CirosBlack/jaspion/main/29_A_Morte_De_Macgaren.jpg"> A Morte de Macgaren</a><li><a href="#" data-src="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/30_O_Panico_Do_Balao.mp4"><img class="thumbnail" src="https://raw.githubusercontent.com/CirosBlack/jaspion/main/30_O_Panico_Do_Balao.jpg"> O Pânico do Balão</a><li><a href="#" data-src="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/31_Golpe_Na_TV.mp4"><img class="thumbnail" src="https://raw.githubusercontent.com/CirosBlack/jaspion/main/31_Golpe_Na_TV.jpg"> Golpe na TV</a><li><a href="#" data-src="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/32_A_Conspiracao_Do_Robo.mp4"><img class="thumbnail" src="https://raw.githubusercontent.com/CirosBlack/jaspion/main/32_A_Conspiracao_Do_Robo.jpg"> A Conspiração do Robô</a><li><a href="#" data-src="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/33_Batalha_Da_Magia_Negra.mp4"><img class="thumbnail" src="https://raw.githubusercontent.com/CirosBlack/jaspion/main/33_Batalha_Da_Magia_Negra.jpg"> Batalha da Magia Negra</a><li><a href="#" data-src="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/34_A_Fortaleza_Indestrutivel.mp4"><img class="thumbnail" src="https://raw.githubusercontent.com/CirosBlack/jaspion/main/34_A_Fortaleza_Indestrutivel.jpg"> A Fortaleza Indestrutível</a><li><a href="#" data-src="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/35_A_Descoberta_Do_Pergaminho.mp4"><img class="thumbnail" src="https://raw.githubusercontent.com/CirosBlack/jaspion/main/35_A_Descoberta_Do_Pergaminho.jpg"> A Descoberta do Pergaminho</a><li><a href="#" data-src="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/36_O_Milagre_Das_Novas_Vidas.mp4"><img class="thumbnail" src="https://raw.githubusercontent.com/CirosBlack/jaspion/main/36_O_Milagre_Das_Novas_Vidas.jpg"> O Milagre das Novas Vidas</a><li><a href="#" data-src="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/37_Cardapio_Infernal.mp4"><img class="thumbnail" src="https://raw.githubusercontent.com/CirosBlack/jaspion/main/37_Cardapio_Infernal.jpg"> Cardápio Infernal</a><li><a href="#" data-src="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/38_Trama_Miraculosa.mp4"><img class="thumbnail" src="https://raw.githubusercontent.com/CirosBlack/jaspion/main/38_Trama_Miraculosa.jpg"> Trama Miraculosa</a><li><a href="#" data-src="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/39_O_Poderoso_Beijo_De_Myio.mp4"><img class="thumbnail" src="https://raw.githubusercontent.com/CirosBlack/jaspion/main/39_O_Poderoso_Beijo_De_Myio.jpg"> O Poderoso Beijo de Myio</a><li><a href="#" data-src="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/40_O_Enigma_Do_Meteoro.mp4"><img class="thumbnail" src="https://raw.githubusercontent.com/CirosBlack/jaspion/main/40_O_Enigma_Do_Meteoro.jpg"> O Enigma do Meteoro</a><li><a href="#" data-src="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/41_O_Atirador_Da_Justica.mp4"><img class="thumbnail" src="https://raw.githubusercontent.com/CirosBlack/jaspion/main/41_O_Atirador_Da_Justica.jpg"> O Atirador da Justiça</a><li><a href="#" data-src="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/42_A_Historia_De_Pep_E_Hiroshi.mp4"><img class="thumbnail" src="https://raw.githubusercontent.com/CirosBlack/jaspion/main/42_A_Historia_De_Pep_E_Hiroshi.jpg"> A História de Pep e Hiroshi</a><li><a href="#" data-src="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/43_O_Misterioso_Mundo_De_Sata_Goss.mp4"><img class="thumbnail" src="https://raw.githubusercontent.com/CirosBlack/jaspion/main/43_O_Misterioso_Mundo_De_Sata_Goss.jpg"> O Misterioso Mundo de Satã Goss</a><li><a href="#" data-src="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/44_Retorno_Satanico.mp4"><img class="thumbnail" src="https://raw.githubusercontent.com/CirosBlack/jaspion/main/44_Retorno_Satanico.jpg"> Retorno Satânico</a><li><a href="#" data-src="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/45_Sou_O_Filho_De_Sata_Goss.mp4"><img class="thumbnail" src="https://raw.githubusercontent.com/CirosBlack/jaspion/main/45_Sou_O_Filho_De_Sata_Goss.jpg"> Sou o Filho de Satã Goss!</a><li><a href="#" data-src="https://huggingface.co/datasets/Ciros/Jaspion/resolve/main/46_A_Uniao_Dos_Povos_Da_Via_Lactea.mp4"><img class="thumbnail" src="https://raw.githubusercontent.com/CirosBlack/jaspion/main/46_A_Uniao_Dos_Povos_Da_Via_Lactea.jpg"> A União dos Povos da Via Láctea</a></ul>  </div>  </div>  <script>  	var player = document.getElementById("player");var videos = document.getElementById("videos");var tempoAtual = document.getElementById("tempoAtual");var range = document.getElementById("range");var tituloVideo = document.getElementById("tituloVideo");var current = 0;function loadVideo(link) {    player.src = link.dataset.src;    player.play();    // Atualiza o título do vídeo    tituloVideo.textContent = link.textContent;}function nextVideo() {    var currentSrc = player.src;    for (var i = 0; i < videos.children.length; i++) {        var link = videos.children[i].firstChild;        if (link.dataset.src == currentSrc) {            current = i;            break;        }    }    current++;    if (current >= videos.children.length) {        current = 0;    }    var link = videos.children[current].firstChild;    loadVideo(link);}player.addEventListener("ended", nextVideo);for (var i = 0; i < videos.children.length; i++) {    var link = videos.children[i].firstChild;    link.addEventListener("click", function (event) {        event.preventDefault();        loadVideo(this);        var currentSrc = player.src;        for (var i = 0; i < videos.children.length; i++) {            var link = videos.children[i].firstChild;            if (link.dataset.src == currentSrc) {                current = i;                break;            }        }    });}function updateTempoAtual() {    var tempoRestante = player.duration - player.currentTime;    tempoAtual.textContent = formatTime(tempoRestante);}function updateRange() {    var fraction = player.currentTime / player.duration;    range.value = fraction * 1000;}function updateVideo() {    var fraction = range.value / 1000;    player.currentTime = fraction * player.duration;}function formatTime(time) {    var minutes = Math.floor(time / 60);    var seconds = Math.floor(time % 60);    return `${padZero(minutes)}:${padZero(seconds)}`;}function padZero(number) {    return number < 10 ? `0${number}` : `${number}`;}// Adiciona um evento de play para atualizar o título do vídeoplayer.addEventListener("play", function () {    tituloVideo.style.display = "block";});// Adiciona um evento de pause para ocultar o título do vídeoplayer.addEventListener("pause", function () {    tituloVideo.style.display = "none";});player.addEventListener("timeupdate", function () {    updateTempoAtual();    updateRange();    updatePlaylist();});range.addEventListener("input", updateVideo);// cor vermelha para o vídeo em reprodução player.addEventListener("timeupdate", function () {    updateTempoAtual();    updateRange();    updatePlaylist(); });function updatePlaylist() {    var currentSrc = player.src;    for (var i = 0; i < videos.children.length; i++) {        var link = videos.children[i].firstChild;        if (link.dataset.src == currentSrc) {            if (player.paused) {                link.classList.remove("playing");            } else {                link.classList.add("playing");            }        } else {            link.classList.remove("playing");        }    }}// Exibe o título do primeiro vídeo quando a página é carregadawindow.onload = function () {    tituloVideo.textContent = videos.children[0].firstChild.textContent;};// Obtenha uma referência para o elemento do player de vídeovar playerElement = document.getElementById("player");// Adicione um ouvinte de evento para o clique do mouse no elemento do playerplayerElement.addEventListener("contextmenu", function (event) {    // Impede o menu de contexto padrão (menu que aparece ao clicar com o botão direito)    event.preventDefault();});</script><script>//controle dos botõesvar playButton = document.getElementById("play-button");var retrocede10sButton = document.getElementById("retrocede10s");var previousBtn = document.getElementById("previousBtn");var nextBtn = document.getElementById("nextBtn");var avanca10sButton = document.getElementById("avanca10s");var telaCheiaButton = document.getElementById("tela-cheia-button");var octPlayButton = document.querySelector(".OctPlay");var mostrarControleButton = document.getElementById("mostrar-controle");var controleVolumeInput = document.getElementById("controle-volume");playButton.addEventListener("click", function () {    if (player.paused) {        player.play();    } else {        player.pause();    }});// Adicione um evento de play para atualizar o botão playplayer.addEventListener("play", function () {    playButton.innerHTML = '<img src="https://raw.githubusercontent.com/CirosBlack/YuYuHakusho/main/Pause.png" alt="Ícone Pause" style="width: 50px; height: 50px;">';});// Adicione um evento de pause para atualizar o botão playplayer.addEventListener("pause", function () {    playButton.innerHTML = '<img src="https://raw.githubusercontent.com/CirosBlack/YuYuHakusho/main/Play.png" alt="Ícone Play" style="width: 50px; height: 50px;">';});retrocede10sButton.addEventListener("click", function () {    player.currentTime -= 10;});previousBtn.addEventListener("click", function () {    var prevIndex = current - 1;    if (prevIndex < 0) {        prevIndex = videos.children.length - 1;    }    var prevLink = videos.children[prevIndex].firstChild;    loadVideo(prevLink);});nextBtn.addEventListener("click", nextVideo);avanca10sButton.addEventListener("click", function () {    player.currentTime += 10;});telaCheiaButton.addEventListener("click", function () {    if (player.requestFullscreen) {        player.requestFullscreen();    } else if (player.mozRequestFullScreen) {        player.mozRequestFullScreen();    } else if (player.webkitRequestFullscreen) {        player.webkitRequestFullscreen();    }});octPlayButton.addEventListener("click", function () {    // Adicione a lógica para ocultar ou mostrar a playlist    // Aqui você pode ajustar a visibilidade da playlist conforme necessário    // Exemplo: Se a playlist estiver visível, oculte; se estiver oculta, mostre.    var playlist = document.getElementById("videos");    playlist.style.display = (playlist.style.display === "none" || playlist.style.display === "") ? "block" : "none";});mostrarControleButton.addEventListener("click", function () {    // Adicione a lógica para mostrar ou ocultar o controle de volume    // Aqui você pode ajustar a visibilidade do controle de volume conforme necessário    controleVolumeInput.style.display = (controleVolumeInput.style.display === "none" || controleVolumeInput.style.display === "") ? "block" : "none";});controleVolumeInput.addEventListener("input", function () {    // Atualize o volume do player conforme o valor do controle de volume    player.volume = controleVolumeInput.value;});// Adicione um evento de play para ocultar a mensagem "vídeo pausado!"player.addEventListener("play", function () {    document.getElementById("videoPausado").style.display = "none";});// Adicione um evento de pause para mostrar a mensagem "vídeo pausado!"player.addEventListener("pause", function () {    document.getElementById("videoPausado").style.display = "block";});  </script>  </body></html>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>CirosBlack</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background-color: #141414;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    /* ====== HEADER / NAVBAR ====== */
+    header {
+      width: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 999;
+      background-color: rgba(0, 0, 0, 0.9);
+      padding: 10px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* Agrupamento do logo e campo de pesquisa */
+    .left-header {
+      display: flex;
+      align-items: center;
+    }
+
+    header .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: #e50914;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      cursor: pointer;
+    }
+
+    /* Campo de pesquisa */
+    #searchInput {
+      margin-left: 20px;
+      padding: 5px 10px;
+      border-radius: 4px;
+      border: none;
+      outline: none;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+
+    nav ul li {
+      cursor: pointer;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    nav ul li:hover {
+      color: #e50914;
+    }
+
+    /* ====== HERO BANNER ====== */
+    .hero {
+      width: 100%;
+      height: 500px;
+      background: url("https://via.placeholder.com/1600x600?text=Assassino+a+Pre%C3%A7o+Fixo") center center no-repeat;
+      background-size: cover;
+      position: relative;
+      margin-top: 60px; /* Compensar o header fixo */
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding-left: 60px;
+      animation: fadeIn 1.5s ease;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to right, rgba(0, 0, 0, 0.7), transparent 60%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 600px;
+    }
+
+    .hero-content h1 {
+      font-size: 48px;
+      margin-bottom: 20px;
+    }
+
+    .hero-content p {
+      font-size: 18px;
+      line-height: 1.4;
+      margin-bottom: 20px;
+    }
+
+    .hero-content button {
+      padding: 12px 24px;
+      background-color: #e50914;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .hero-content button:hover {
+      background-color: #f6121d;
+    }
+
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+
+    /* ====== SECTIONS (CARDS) ====== */
+    main {
+      width: 100%;
+      padding: 40px 40px 80px;
+      margin-top: 60px;
+    }
+
+    .section-title {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    .movie-row {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      padding-bottom: 10px;
+    }
+
+    .movie-row::-webkit-scrollbar {
+      height: 8px;
+    }
+
+    .movie-row::-webkit-scrollbar-thumb {
+      background-color: #555;
+      border-radius: 4px;
+    }
+
+    .movie-row::-webkit-scrollbar-track {
+      background-color: #222;
+    }
+
+    .movie-card {
+      flex: 0 0 auto;
+      width: 150px;
+      border-radius: 6px;
+      overflow: hidden;
+      background-color: #222;
+      position: relative;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .movie-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.8);
+    }
+
+    .movie-card img {
+      width: 100%;
+      display: block;
+    }
+
+    .movie-card-info {
+      padding: 8px;
+    }
+
+    .movie-card-info h4 {
+      font-size: 14px;
+      margin-bottom: 6px;
+    }
+
+    .movie-card-info p {
+      font-size: 12px;
+      color: #bbb;
+    }
+
+    /* ====== RESPONSIVE ====== */
+    @media (max-width: 768px) {
+      .hero {
+        height: 300px;
+        padding-left: 20px;
+      }
+
+      .hero-content h1 {
+        font-size: 28px;
+      }
+
+      .hero-content p {
+        font-size: 14px;
+      }
+
+      .hero-content button {
+        font-size: 14px;
+      }
+
+      header .logo {
+        font-size: 18px;
+      }
+
+      nav ul li {
+        font-size: 14px;
+      }
+
+      .section-title {
+        font-size: 18px;
+      }
+
+      .movie-card {
+        width: 120px;
+      }
+
+      .movie-card-info h4 {
+        font-size: 12px;
+      }
+
+      .movie-card-info p {
+        font-size: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- ====== HEADER / NAVBAR ====== -->
+  <header>
+    <div class="left-header">
+      <div class="logo">CirosBlack</div>
+      <input type="text" id="searchInput" placeholder="Pesquisar..." />
+    </div>
+    <nav>
+      <ul>
+        <li>Início</li>
+        <li>Animes</li>
+        <li>Filmes</li>
+        <li>Séries</li>
+        <li>Cursos</li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- ====== MAIN CONTENT ====== -->
+  <main>
+    <!-- Seção "Continue Assistindo" -->
+    <div class="section">
+      <h2 class="section-title"></h2>
+      <div class="movie-row">
+        <!-- Card 1 (com link) -->
+        <div class="movie-card">
+          <a href="https://cirosblack.github.io/YuYuHakusho" target="_self" style="text-decoration: none; color: inherit; display: block;">
+            <img src="https://huggingface.co/datasets/CirosW/Q0FQQVM/resolve/main/WXUgWXUgSGFrdXNobw.jpg" alt="Yu Yu Hakusho" />
+            <div class="movie-card-info">
+              <h4>Yu Yu Hakusho</h4>
+              <p>Animes</p>
+            </div>
+          </a>
+        </div>
+        <!-- Card 2 (segunda capa) -->
+        <div class="movie-card">
+          <img src="https://huggingface.co/datasets/CirosW/Q0FQQVM/resolve/main/SmFzcGlvbg.jpg" alt="Jaspion" />
+          <div class="movie-card-info">
+            <h4>Jaspion</h4>
+            <p>Tokusatsu</p>
+          </div>
+        </div>
+        <!-- Card 3 -->
+        <div class="movie-card">
+          <img src="https://huggingface.co/datasets/CirosW/Q0FQQVM/resolve/main/WXUgWXUgSGFrdXNobw.jpg" alt="Ant-Man and the Wasp" />
+          <div class="movie-card-info">
+            <h4>Ant-Man and the Wasp</h4>
+            <p>Aventura/Marvel</p>
+          </div>
+        </div>
+        <!-- Card 4 -->
+        <div class="movie-card">
+          <img src="https://huggingface.co/datasets/CirosW/Q0FQQVM/resolve/main/WXUgWXUgSGFrdXNobw.jpg" alt="Doctor Strange" />
+          <div class="movie-card-info">
+            <h4>Doctor Strange</h4>
+            <p>Marvel</p>
+          </div>
+        </div>
+        <!-- Card 5 -->
+        <div class="movie-card">
+          <img src="https://huggingface.co/datasets/CirosW/Q0FQQVM/resolve/main/WXUgWXUgSGFrdXNobw.jpg" alt="Wonka" />
+          <div class="movie-card-info">
+            <h4>Wonka</h4>
+            <p>Fantasia</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Seção "Populares - Filme" -->
+    <div class="section">
+      <h2 class="section-title">Populares - Filme</h2>
+      <div class="movie-row">
+        <!-- Card 1 -->
+        <div class="movie-card">
+          <img src="https://huggingface.co/datasets/CirosW/Q0FQQVM/resolve/main/WXUgWXUgSGFrdXNobw.jpg" alt="Duna: Parte 2" />
+          <div class="movie-card-info">
+            <h4>Duna: Parte 2</h4>
+            <p>Ficção Científica</p>
+          </div>
+        </div>
+        <!-- Card 2 -->
+        <div class="movie-card">
+          <img src="https://huggingface.co/datasets/CirosW/Q0FQQVM/resolve/main/WXUgWXUgSGFrdXNobw.jpg" alt="Immaculate" />
+          <div class="movie-card-info">
+            <h4>Immaculate</h4>
+            <p>Terror</p>
+          </div>
+        </div>
+        <!-- Card 3 -->
+        <div class="movie-card">
+          <img src="https://huggingface.co/datasets/CirosW/Q0FQQVM/resolve/main/WXUgWXUgSGFrdXNobw.jpg" alt="Monkey Man" />
+          <div class="movie-card-info">
+            <h4>Monkey Man</h4>
+            <p>Ação</p>
+          </div>
+        </div>
+        <!-- Card 4 -->
+        <div class="movie-card">
+          <img src="https://huggingface.co/datasets/CirosW/Q0FQQVM/resolve/main/WXUgWXUgSGFrdXNobw.jpg" alt="Road House" />
+          <div class="movie-card-info">
+            <h4>Road House</h4>
+            <p>Ação/Clássico</p>
+          </div>
+        </div>
+        <!-- Card 5 -->
+        <div class="movie-card">
+          <img src="https://huggingface.co/datasets/CirosW/Q0FQQVM/resolve/main/WXUgWXUgSGFrdXNobw.jpg" alt="Poor Things" />
+          <div class="movie-card-info">
+            <h4>Poor Things</h4>
+            <p>Drama/Fantasia</p>
+          </div>
+        </div>
+        <!-- Card 6 -->
+        <div class="movie-card">
+          <img src="https://huggingface.co/datasets/CirosW/Q0FQQVM/resolve/main/WXUgWXUgSGFrdXNobw.jpg" alt="Late Night with the Devil" />
+          <div class="movie-card-info">
+            <h4>Late Night with the Devil</h4>
+            <p>Terror/Suspense</p>
+          </div>
+        </div>
+        <!-- Card 7 -->
+        <div class="movie-card">
+          <img src="https://huggingface.co/datasets/CirosW/Q0FQQVM/resolve/main/WXUgWXUgSGFrdXNobw.jpg" alt="The Ten Commandments" />
+          <div class="movie-card-info">
+            <h4>The Ten Commandments</h4>
+            <p>Clássico/Épico</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ====== SCRIPT DE PESQUISA ====== -->
+  <script>
+    const searchInput = document.getElementById('searchInput');
+
+    searchInput.addEventListener('input', function() {
+      const query = this.value.toLowerCase().trim();
+      const cards = document.querySelectorAll('.movie-card');
+
+      cards.forEach(card => {
+        // Obtém o título e a categoria da capa
+        const title = card.querySelector('.movie-card-info h4').textContent.toLowerCase();
+        const category = card.querySelector('.movie-card-info p').textContent.toLowerCase();
+
+        // Se a query for encontrada em título ou categoria, exibe o card; senão, oculta.
+        if (title.includes(query) || category.includes(query)) {
+          card.style.display = '';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
