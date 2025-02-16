@@ -197,7 +197,7 @@
       width: 100%;
     }
     
-    /* Cada item da playlist agora é um flex container para alinhar o título à esquerda e o botão à direita */
+    /* Cada item da playlist é um flex container para alinhar o título à esquerda e o botão à direita */
     .playlist-container li {
       padding: 10px;
       margin-bottom: 5px;
@@ -221,20 +221,19 @@
     
     /* Botões de download inicialmente ocultos */
     .download-btn {
-  display: none;
-  color: #fff;
-  text-decoration: none;
-  background-color: #444; /* cor original */
-  padding: 5px 10px;
-  border-radius: 3px;
-  font-size: 0.8rem;
-  transition: background-color 0.3s;
-}
-
-.download-btn:hover {
-  background-color: red; /* muda para vermelho no hover */
-}
-
+      display: none;
+      color: #fff;
+      text-decoration: none;
+      background-color: #444;
+      padding: 5px 10px;
+      border-radius: 3px;
+      font-size: 0.8rem;
+      transition: background-color 0.3s;
+    }
+    
+    .download-btn:hover {
+      background-color: red; /* Muda para vermelho ao passar o mouse */
+    }
     
     /* Exibe os botões de download quando a playlist tem a classe .show-downloads */
     .playlist-container.show-downloads .download-btn {
@@ -253,6 +252,11 @@
       justify-content: center;
     }
     
+    /* Em tela cheia, exibe os controles (ao invés de ocultar) */
+    :fullscreen .controls-overlay {
+      display: flex;
+    }
+    
     :fullscreen #videoPlayer {
       position: absolute;
       top: 0;
@@ -262,11 +266,6 @@
       object-fit: contain;
       background-color: #000;
     }
-    
-    :fullscreen .controls-overlay {
-  display: flex;
-}
-
     
     /* MODO PAISAGEM */
     @media (orientation: landscape) {
@@ -679,6 +678,7 @@
       }
     });
     
+    // Lógica para exibir os controles e ocultá-los após 2 segundos (incluindo em tela cheia)
     videoContainer.addEventListener('mouseenter', () => {
       controlsOverlay.classList.remove('hidden');
       clearTimeout(hideControlsTimeout);
