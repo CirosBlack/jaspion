@@ -460,7 +460,6 @@
 { src: "https://huggingface.co/datasets/CirosW/SmFzcGlvbg/resolve/main/045.mp4", title: "Sou o filho de Satã Goss!" },
 { src: "https://huggingface.co/datasets/CirosW/SmFzcGlvbg/resolve/main/046.mp4", title: "A união dos povos da Via Láctea" }
 ];
-
     
     let currentIndex = 0;
     videoPlayer.removeAttribute('controls');
@@ -475,6 +474,16 @@
         li.innerHTML = `<span class="episode-title">${video.title}</span>
                           <a href="${video.src}?download=true" class="download-btn" download>Download</a>`;
         playlist.appendChild(li);
+      });
+    }
+    
+    // Função para prevenir que o clique no botão de download propague para o LI
+    function addDownloadClickPrevention() {
+      const downloadButtons = document.querySelectorAll('.download-btn');
+      downloadButtons.forEach(btn => {
+        btn.addEventListener('click', e => {
+          e.stopPropagation();
+        });
       });
     }
     
@@ -542,6 +551,7 @@
     
     window.addEventListener('load', () => {
       generatePlaylist();
+      addDownloadClickPrevention();
       loadVideoByIndex(0);
       videoPlayer.play().then(() => {
         videoPlayer.muted = false;
@@ -564,8 +574,8 @@
       }
     });
     
+    // Evento na playlist para carregar o vídeo, exceto se for no botão de download
     playlist.addEventListener('click', e => {
-      // Verifica se foi clicado no item (evitando que o clique no botão de download interfira)
       if ((e.target && e.target.tagName.toLowerCase() === 'li') || 
           (e.target.parentElement && e.target.parentElement.tagName.toLowerCase() === 'li')) {
         const li = e.target.tagName.toLowerCase() === 'li' ? e.target : e.target.parentElement;
@@ -657,11 +667,10 @@
       }
     });
     
-    // Botão para alternar a exibição dos downloads usando a imagem informada
+    // Botão para alternar a exibição dos downloads
     toggleDownloadsBtn.addEventListener('click', () => {
       playlistContainer.classList.toggle('show-downloads');
       if (playlistContainer.classList.contains('show-downloads')) {
-        // Rotaciona a imagem 180° para indicar que pode ocultar
         toggleDownloadsBtn.innerHTML = `<img src="https://raw.githubusercontent.com/CirosBlack/YuYuHakusho/refs/heads/main/down.png" alt="Ocultar Downloads" style="width:35px; height:35px; transform: rotate(180deg);">`;
       } else {
         toggleDownloadsBtn.innerHTML = `<img src="https://raw.githubusercontent.com/CirosBlack/YuYuHakusho/refs/heads/main/down.png" alt="Mostrar Downloads" style="width:35px; height:35px;">`;
