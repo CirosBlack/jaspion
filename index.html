@@ -2,8 +2,6 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Player de vídeo personalizado para assistir Jaspion" />
   <title>Jaspion</title>
   <style>
     /* Reset e estilos gerais */
@@ -49,7 +47,6 @@
       object-fit: contain;
       background-color: #000;
       outline: none;
-      will-change: transform;
     }
     
     /* -------------------------
@@ -227,25 +224,15 @@
       display: none;
       color: #fff;
       text-decoration: none;
-      background: linear-gradient(90deg, #444, #555);
-      padding: 8px 15px;
-      border-radius: 20px;
-      font-size: 0.85rem;
-      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-      position: relative;
-      overflow: hidden;
+      background-color: #444;
+      padding: 5px 10px;
+      border-radius: 3px;
+      font-size: 0.8rem;
+      transition: background-color 0.3s;
     }
     
     .download-btn:hover {
-      background: linear-gradient(90deg, #ff0000, #ff5e3a);
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
-    }
-    
-    .download-btn:active {
-      transform: translateY(0);
-      box-shadow: 0 2px 5px rgba(255, 0, 0, 0.2);
+      background-color: red; /* Muda para vermelho ao passar o mouse */
     }
     
     /* Exibe os botões de download quando a playlist tem a classe .show-downloads */
@@ -343,44 +330,13 @@
     }
     
     .playlist-container::-webkit-scrollbar-thumb {
-      background: #444;
+      background: #0000;
       border-radius: 10px;
-    }
-    
-    /* Indicador de carregamento */
-    .loading-indicator {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 70px;
-      height: 70px;
-      border: 4px solid rgba(255, 255, 255, 0.1);
-      border-radius: 50%;
-      border-top-color: #ff0000;
-      animation: spin 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
-      display: none;
-      box-shadow: 0 0 20px rgba(255, 0, 0, 0.2);
-    }
-    
-    @keyframes spin {
-      0% { 
-        transform: translate(-50%, -50%) rotate(0deg);
-        border-top-color: #ff0000;
-      }
-      50% {
-        border-top-color: #ff5e3a;
-      }
-      100% { 
-        transform: translate(-50%, -50%) rotate(360deg);
-        border-top-color: #ff0000;
-      }
     }
   </style>
 </head>
 <body>
   <div class="video-container" id="videoContainer">
-    <div class="loading-indicator" id="loadingIndicator"></div>
     <video 
       id="videoPlayer"
       preload="metadata"
@@ -389,8 +345,7 @@
       x-webkit-airplay="allow"
       disablepictureinpicture
       controlslist="nodownload nofullscreen noremoteplayback noplaybackrate"
-      aria-label="Player de vídeo"
-      role="application"
+      muted
     ></video>
     
     <!-- CONTROLES SOBRE O VÍDEO -->
@@ -406,9 +361,6 @@
             </button>
             <button id="nextBtn">
               <img src="https://raw.githubusercontent.com/CirosBlack/YuYuHakusho/refs/heads/main/Avancar.png" alt="Próximo" />
-            </button>
-            <button id="volumeBtn">
-              <img src="https://raw.githubusercontent.com/CirosBlack/YuYuHakusho/refs/heads/main/Volume.png" alt="Volume" />
             </button>
           </div>
           <div class="right-buttons">
@@ -449,19 +401,15 @@
     const videoTitle = document.getElementById('videoTitle');
     const playlist = document.getElementById('playlist');
     const playlistContainer = document.getElementById('playlistContainer');
-    const loadingIndicator = document.getElementById('loadingIndicator');
     
     const prevBtn = document.getElementById('prevBtn');
     const playPauseBtn = document.getElementById('playPauseBtn');
     const nextBtn = document.getElementById('nextBtn');
-    const volumeBtn = document.getElementById('volumeBtn');
     const fullscreenBtn = document.getElementById('fullscreenBtn');
     const toggleDownloadsBtn = document.getElementById('toggleDownloadsBtn');
     
     const playImage = 'https://raw.githubusercontent.com/CirosBlack/YuYuHakusho/refs/heads/main/Play.png';
     const pauseImage = 'https://raw.githubusercontent.com/CirosBlack/YuYuHakusho/refs/heads/main/Pause.png';
-    const volumeImage = 'https://raw.githubusercontent.com/CirosBlack/YuYuHakusho/refs/heads/main/Volume.png';
-    const muteImage = 'https://raw.githubusercontent.com/CirosBlack/YuYuHakusho/refs/heads/main/Mute.png';
     
     // Playlist com apenas os 5 primeiros episódios
     const videos = [
@@ -543,48 +491,12 @@
     function loadVideoByIndex(index) {
       if (index < 0 || index >= videos.length) return;
       currentIndex = index;
-      
-      // Mostrar indicador de carregamento
-      loadingIndicator.style.display = 'block';
-      
-      // Salvar o índice atual no localStorage
-      localStorage.setItem('jaspion_current_episode', index);
-      
-      // Fade out do vídeo atual
-      videoPlayer.style.opacity = '0';
-      
-      // Pré-carregar o próximo vídeo
-      const nextVideo = new Image();
-      nextVideo.src = videos[currentIndex].src;
-      
-      setTimeout(() => {
-        videoPlayer.src = videos[currentIndex].src;
-        updateVideoTitle(currentIndex);
-        
-        // Configurar buffer para melhor performance
-        videoPlayer.preload = 'auto';
-        videoPlayer.load();
-        
-        videoPlayer.play()
-          .then(() => {
-            // Fade in do novo vídeo
-            videoPlayer.style.opacity = '1';
-          })
-          .catch((error) => {
-            console.error('Erro ao reproduzir vídeo:', error);
-            videoPlayer.style.opacity = '1';
-          });
-        
-        updatePlayPauseButton();
-        highlightCurrentItem();
-        scrollPlaylistToCurrent();
-        
-        // Pré-carregar próximo episódio se existir
-        if (currentIndex + 1 < videos.length) {
-          const preloadNext = new Image();
-          preloadNext.src = videos[currentIndex + 1].src;
-        }
-      }, 300);
+      videoPlayer.src = videos[currentIndex].src;
+      updateVideoTitle(currentIndex);
+      videoPlayer.play().catch(() => {});
+      updatePlayPauseButton();
+      highlightCurrentItem();
+      scrollPlaylistToCurrent();
     }
     
     function updateVideoTitle(index) {
@@ -638,140 +550,23 @@
       }
     }
     
-    // Adicionar funcionalidade de controle de volume
-    volumeBtn.addEventListener('click', () => {
-      if (videoPlayer.muted) {
-        videoPlayer.muted = false;
-        videoPlayer.volume = 1.0;
-        volumeBtn.innerHTML = `<img src="${volumeImage}" alt="Volume" />`;
-      } else {
-        videoPlayer.muted = true;
-        volumeBtn.innerHTML = `<img src="${muteImage}" alt="Mute" />`;
-      }
-    });
-    
     window.addEventListener('load', () => {
-      try {
-        generatePlaylist();
-        addDownloadClickPrevention();
-        
-        // Inicializar estado do volume
-        videoPlayer.volume = 1.0;
+      generatePlaylist();
+      addDownloadClickPrevention();
+      loadVideoByIndex(0);
+      videoPlayer.play().then(() => {
         videoPlayer.muted = false;
-        
-        // Recuperar o último episódio assistido do localStorage
-        const savedIndex = localStorage.getItem('jaspion_current_episode');
-        const savedTime = localStorage.getItem('jaspion_current_time');
-        const startIndex = savedIndex ? parseInt(savedIndex) : 0;
-        
-        loadVideoByIndex(startIndex);
-        
-        // Restaurar a posição do vídeo se existir
-        if (savedTime) {
-          videoPlayer.addEventListener('loadedmetadata', () => {
-            const time = parseFloat(savedTime);
-            if (!isNaN(time) && time > 0 && time < videoPlayer.duration) {
-              videoPlayer.currentTime = time;
-            }
-          }, { once: true });
-        }
-        
-        videoPlayer.play().then(() => {
-          videoPlayer.muted = false;
-          videoPlayer.volume = 1.0;
-        }).catch((err) => {
-          console.error("Erro ao tentar reproduzir o vídeo:", err);
-          alert("Erro ao iniciar o vídeo. Por favor, tente novamente.");
-        });
-      } catch (error) {
-        console.error("Erro ao inicializar o player:", error);
-        alert("Ocorreu um erro ao carregar o player. Por favor, recarregue a página.");
-      }
+        videoPlayer.volume = 1.0;
+      }).catch((err) => {
+        console.log("Erro ao tentar reproduzir o vídeo:", err);
+      });
       setTimeout(() => {
         controlsOverlay.classList.add('hidden');
       }, 2000);
     });
     
-    videoPlayer.addEventListener('timeupdate', () => {
-      updateProgress();
-      // Salvar a posição atual do vídeo a cada 5 segundos
-      if (videoPlayer.currentTime % 5 < 0.5) {
-        localStorage.setItem('jaspion_current_time', videoPlayer.currentTime);
-      }
-    });
-    
-    // Melhorar o gerenciamento de buffer e carregamento
-    videoPlayer.addEventListener('loadedmetadata', () => {
-      updateProgress();
-      loadingIndicator.style.display = 'none';
-      // Definir qualidade de reprodução para melhorar performance
-      if (videoPlayer.canPlayType('video/mp4; codecs="avc1.42E01E, mp4a.40.2"')) {
-        console.log('Usando codec otimizado');
-      }
-    });
-    
-    // Gerenciar buffer para evitar travamentos
-    videoPlayer.addEventListener('waiting', () => {
-      loadingIndicator.style.display = 'block';
-      // Animação suave ao entrar em buffer
-      loadingIndicator.animate([
-        { opacity: 0.7 },
-        { opacity: 1 }
-      ], {
-        duration: 500,
-        iterations: Infinity,
-        direction: 'alternate',
-        easing: 'ease-in-out'
-      });
-    });
-    
-    videoPlayer.addEventListener('playing', () => {
-      loadingIndicator.style.display = 'none';
-      // Garantir que o áudio esteja habilitado quando o vídeo começar a reproduzir
-      videoPlayer.muted = false;
-      videoPlayer.volume = 1.0;
-      volumeBtn.innerHTML = `<img src="${volumeImage}" alt="Volume" />`;
-      
-      // Animação suave ao retomar a reprodução
-      videoPlayer.animate([
-        { filter: 'brightness(1.2)' },
-        { filter: 'brightness(1)' }
-      ], {
-        duration: 500,
-        easing: 'ease-out'
-      });
-    });
-    
-    // Melhor tratamento de erros
-    videoPlayer.addEventListener('error', () => {
-      loadingIndicator.style.display = 'none';
-      // Tentar recarregar automaticamente uma vez antes de mostrar erro
-      if (!videoPlayer.dataset.retryAttempted) {
-        videoPlayer.dataset.retryAttempted = 'true';
-        console.log('Tentando recarregar o vídeo automaticamente...');
-        setTimeout(() => {
-          videoPlayer.load();
-          videoPlayer.play().catch(err => {
-            console.error('Falha na segunda tentativa:', err);
-            alert('Erro ao carregar o vídeo. Tente novamente mais tarde.');
-          });
-        }, 1000);
-      } else {
-        delete videoPlayer.dataset.retryAttempted;
-        alert('Erro ao carregar o vídeo. Tente novamente mais tarde.');
-      }
-    });
-    
-    // Adicionar evento para monitorar o buffer
-    videoPlayer.addEventListener('progress', () => {
-      if (videoPlayer.buffered.length > 0) {
-        const bufferedEnd = videoPlayer.buffered.end(videoPlayer.buffered.length - 1);
-        const duration = videoPlayer.duration;
-        if (bufferedEnd < duration) {
-          console.log(`Buffering: ${Math.round(bufferedEnd / duration * 100)}%`);
-        }
-      }
-    });
+    videoPlayer.addEventListener('timeupdate', updateProgress);
+    videoPlayer.addEventListener('loadedmetadata', updateProgress);
     
     videoPlayer.addEventListener('ended', () => {
       const nextIndex = currentIndex + 1;
@@ -901,36 +696,6 @@
   <script>
   document.addEventListener('contextmenu', function(e) {
     e.preventDefault();
-  });
-  
-  // Adicionar suporte a teclas de atalho
-  document.addEventListener('keydown', function(e) {
-    switch(e.key) {
-      case ' ': // Espaço - Play/Pause
-      case 'k': // YouTube style
-        if (videoPlayer.paused) {
-          videoPlayer.play();
-        } else {
-          videoPlayer.pause();
-        }
-        updatePlayPauseButton();
-        break;
-      case 'ArrowRight': // Avançar 10 segundos
-        videoPlayer.currentTime += 10;
-        break;
-      case 'ArrowLeft': // Retroceder 10 segundos
-        videoPlayer.currentTime -= 10;
-        break;
-      case 'f': // Tela cheia
-        fullscreenBtn.click();
-        break;
-      case 'n': // Próximo episódio
-        nextBtn.click();
-        break;
-      case 'p': // Episódio anterior
-        prevBtn.click();
-        break;
-    }
   });
 </script>
 </body>
