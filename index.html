@@ -725,6 +725,36 @@ pipBtn.addEventListener('click', async () => {
   }
 });
 
+  // Atalhos de teclado mesmo em PiP
+document.addEventListener('keydown', (e) => {
+  // Ignorar se estiver digitando em inputs
+  if (['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) return;
+
+  switch (e.code) {
+    case 'ArrowRight':
+      videoPlayer.currentTime += 10;
+      break;
+    case 'ArrowLeft':
+      videoPlayer.currentTime -= 10;
+      break;
+    case 'KeyA': // anterior
+      if (currentIndex > 0) loadVideoByIndex(currentIndex - 1);
+      break;
+    case 'KeyD': // próximo
+      if (currentIndex < videos.length - 1) loadVideoByIndex(currentIndex + 1);
+      break;
+    case 'Space':
+      e.preventDefault(); // evita scroll
+      if (videoPlayer.paused) {
+        videoPlayer.play();
+      } else {
+        videoPlayer.pause();
+      }
+      updatePlayPauseButton();
+      break;
+  }
+});
+
 </script>
 </body>
 </html>
