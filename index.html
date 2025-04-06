@@ -697,6 +697,16 @@
   document.addEventListener('contextmenu', function(e) {
     e.preventDefault();
   });
+
+  document.addEventListener('visibilitychange', () => {
+  if (!document.hidden && !videoPlayer.paused) {
+    const currentTime = videoPlayer.currentTime;
+    videoPlayer.pause();
+    videoPlayer.currentTime = currentTime; // Reforça o ponto atual
+    videoPlayer.play().catch(() => {});
+  }
+});
+
 </script>
 </body>
 </html>
