@@ -755,6 +755,17 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
+  videoPlayer.addEventListener('enterpictureinpicture', () => {
+  console.log('Entrou no modo PiP');
+  // Aqui você pode esconder elementos se quiser
+});
+
+videoPlayer.addEventListener('leavepictureinpicture', () => {
+  console.log('Saiu do modo PiP');
+  // Aqui você pode restaurar elementos se quiser
+});
+
+
 </script>
 </body>
 </html>
