@@ -339,11 +339,10 @@
   <div class="video-container" id="videoContainer">
     <video 
       id="videoPlayer"
-      preload="metadata"
+      preload="auto"
       playsinline
       webkit-playsinline
       x-webkit-airplay="allow"
-      disablepictureinpicture
       controlslist="nodownload nofullscreen noremoteplayback noplaybackrate"
       muted
     ></video>
@@ -371,6 +370,9 @@
             <button id="toggleDownloadsBtn">
               <img src="https://raw.githubusercontent.com/CirosBlack/YuYuHakusho/refs/heads/main/down.png" alt="Mostrar Downloads" style="width:35px; height:35px;">
             </button>
+            <button id="pipBtn">
+  <img src="https://img.icons8.com/ios-filled/50/picture-in-picture.png" alt="PiP" style="width: 35px; height: 35px;" />
+</button>
           </div>
         </div>
         <div class="progress-wrapper">
@@ -706,6 +708,20 @@
       videoPlayer.currentTime = currentTime;
       videoPlayer.play().catch(() => {});
     }, 50); // 50ms de intervalo só pra suavizar
+  }
+});
+
+  const pipBtn = document.getElementById('pipBtn');
+
+pipBtn.addEventListener('click', async () => {
+  try {
+    if (document.pictureInPictureElement) {
+      await document.exitPictureInPicture();
+    } else {
+      await videoPlayer.requestPictureInPicture();
+    }
+  } catch (error) {
+    console.error('Erro ao alternar Picture-in-Picture:', error);
   }
 });
 
