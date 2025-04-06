@@ -702,8 +702,10 @@
   if (!document.hidden && !videoPlayer.paused) {
     const currentTime = videoPlayer.currentTime;
     videoPlayer.pause();
-    videoPlayer.currentTime = currentTime; // Reforça o ponto atual
-    videoPlayer.play().catch(() => {});
+    setTimeout(() => {
+      videoPlayer.currentTime = currentTime;
+      videoPlayer.play().catch(() => {});
+    }, 50); // 50ms de intervalo só pra suavizar
   }
 });
 
