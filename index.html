@@ -711,61 +711,6 @@
   }
 });
 
-  const pipBtn = document.getElementById('pipBtn');
-
-pipBtn.addEventListener('click', async () => {
-  try {
-    if (document.pictureInPictureElement) {
-      await document.exitPictureInPicture();
-    } else {
-      await videoPlayer.requestPictureInPicture();
-    }
-  } catch (error) {
-    console.error('Erro ao alternar Picture-in-Picture:', error);
-  }
-});
-
-  // Atalhos de teclado mesmo em PiP
-document.addEventListener('keydown', (e) => {
-  // Ignorar se estiver digitando em inputs
-  if (['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) return;
-
-  switch (e.code) {
-    case 'ArrowRight':
-      videoPlayer.currentTime += 10;
-      break;
-    case 'ArrowLeft':
-      videoPlayer.currentTime -= 10;
-      break;
-    case 'KeyA': // anterior
-      if (currentIndex > 0) loadVideoByIndex(currentIndex - 1);
-      break;
-    case 'KeyD': // próximo
-      if (currentIndex < videos.length - 1) loadVideoByIndex(currentIndex + 1);
-      break;
-    case 'Space':
-      e.preventDefault(); // evita scroll
-      if (videoPlayer.paused) {
-        videoPlayer.play();
-      } else {
-        videoPlayer.pause();
-      }
-      updatePlayPauseButton();
-      break;
-  }
-});
-
-  videoPlayer.addEventListener('enterpictureinpicture', () => {
-  console.log('Entrou no modo PiP');
-  // Aqui você pode esconder elementos se quiser
-});
-
-videoPlayer.addEventListener('leavepictureinpicture', () => {
-  console.log('Saiu do modo PiP');
-  // Aqui você pode restaurar elementos se quiser
-});
-
-
 </script>
 </body>
 </html>
