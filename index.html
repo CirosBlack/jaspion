@@ -693,22 +693,32 @@
       }, 2000);
     });
   </script>
+  
+<script src="https://vjs.zencdn.net/8.6.1/video.min.js"></script>
 <script>
-  document.addEventListener('contextmenu', function(e) {
-    e.preventDefault();
+  document.addEventListener('DOMContentLoaded', () => {
+    const player = videojs('my-video');
+
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden && !player.paused()) {
+        const currentTime = player.currentTime();
+        player.pause();
+        player.one('pause', () => {
+          // Pausa pequena para evitar bug de sincronização
+          setTimeout(() => {
+            player.currentTime(currentTime);
+            player.play().catch(() => {});
+          }, 50);
+        });
+      }
+    });
+
+    // Bloqueia clique com botão direito
+    document.addEventListener('contextmenu', function(e) {
+      e.preventDefault();
+    });
   });
-
-  document.addEventListener('visibilitychange', () => {
-  if (!document.hidden && !videoPlayer.paused) {
-    const currentTime = videoPlayer.currentTime;
-    videoPlayer.pause();
-    setTimeout(() => {
-      videoPlayer.currentTime = currentTime;
-      videoPlayer.play().catch(() => {});
-    }, 50); // 50ms de intervalo só pra suavizar
-  }
-});
-
 </script>
+
 </body>
 </html>
